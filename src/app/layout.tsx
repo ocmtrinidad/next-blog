@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AuthSessionProvider from "./(components)/AuthSessionProvider";
+import Navbar from "./(components)/Navbar";
 
 export const metadata: Metadata = {
   title: "Next Blog",
@@ -13,7 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div>
+          <Navbar />
+          <AuthSessionProvider>{children}</AuthSessionProvider>
+        </div>
+      </body>
     </html>
   );
 }
