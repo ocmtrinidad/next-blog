@@ -1,6 +1,6 @@
 "use server";
 
-import { addUser } from "@/models/users";
+import { addUser } from "@/models/usersModels";
 import { redirect } from "next/navigation";
 
 type UserErrors = {
