@@ -7,7 +7,7 @@ export default async function Navbar() {
 
   return (
     <nav className="flex justify-between items-center p-4 border-b">
-      <h1>NEXT BLOG</h1>
+      <Link href={"/"}>NEXT BLOG</Link>
       {session ? (
         <div className="flex justify-between items-center gap-2">
           <Link href={"/create-post"}>
