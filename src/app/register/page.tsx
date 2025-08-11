@@ -18,19 +18,19 @@ export default function RegisterPage() {
       <h2>Register Page</h2>
       <form action={formAction}>
         <div>
-          <label htmlFor="name">name:</label>
+          <label htmlFor="name">Name:</label>
           <input type="text" name="name" id="name" />
           {state?.errors.name && <p>{state.errors.name}</p>}
         </div>
 
         <div>
-          <label htmlFor="username">email:</label>
+          <label htmlFor="username">Email:</label>
           <input type="email" name="email" id="email" />
           {state?.errors.email && <p>{state.errors.email}</p>}
         </div>
 
         <div>
-          <label htmlFor="password">password:</label>
+          <label htmlFor="password">Password:</label>
           <input type="password" name="password" id="password" />
           {state?.errors.password && <p>{state.errors.password}</p>}
         </div>
