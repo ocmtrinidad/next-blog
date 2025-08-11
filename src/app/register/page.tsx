@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { createUser, UserFormState } from "../controllers/users";
+import { createUser, UserFormState } from "../controllers/usersControllers";
 
 export default function RegisterPage() {
   const initialState: UserFormState = {

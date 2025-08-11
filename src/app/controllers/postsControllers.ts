@@ -1,6 +1,6 @@
 "use server";
 
-import { addPost } from "@/models/posts";
+import { addPost } from "@/models/postsModels";
 import { redirect } from "next/navigation";
 
 type PostErrors = {

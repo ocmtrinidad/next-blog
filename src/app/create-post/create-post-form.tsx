@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { PostFormState, createPost } from "../controllers/posts";
+import { PostFormState, createPost } from "../controllers/postsControllers";
 import { UserType } from "@/models/users";
 
 export default function CreatePostForm({ user }: { user: UserType }) {
