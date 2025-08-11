@@ -20,19 +20,25 @@ export default function RegisterPage() {
         <div>
           <label htmlFor="name">Name:</label>
           <input type="text" name="name" id="name" />
-          {state?.errors.name && <p>{state.errors.name}</p>}
+          {state?.errors.name && (
+            <p className="text-red-500">{state.errors.name}</p>
+          )}
         </div>
 
         <div>
           <label htmlFor="username">Email:</label>
           <input type="email" name="email" id="email" />
-          {state?.errors.email && <p>{state.errors.email}</p>}
+          {state?.errors.email && (
+            <p className="text-red-500">{state.errors.email}</p>
+          )}
         </div>
 
         <div>
           <label htmlFor="password">Password:</label>
           <input type="password" name="password" id="password" />
-          {state?.errors.password && <p>{state.errors.password}</p>}
+          {state?.errors.password && (
+            <p className="text-red-500">{state.errors.password}</p>
+          )}
         </div>
 
         {isPending ? (
