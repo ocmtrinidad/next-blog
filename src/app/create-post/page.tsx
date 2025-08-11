@@ -10,10 +10,5 @@ export default async function CreatePostPage() {
     redirect("/api/auth/signin?callbackUrl=/");
   }
 
-  return (
-    <>
-      <h2>CREATE POST PAGE</h2>
-      <CreatePostForm user={session.user} />
-    </>
-  );
+  return <CreatePostForm user={session.user} />;
 }
