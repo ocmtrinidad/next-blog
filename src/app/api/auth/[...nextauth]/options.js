@@ -1,4 +1,4 @@
-import { getUserByEmail } from "@/models/users";
+import { getUserByEmail } from "@/models/usersModels";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
