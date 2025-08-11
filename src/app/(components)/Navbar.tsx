@@ -9,11 +9,18 @@ export default async function Navbar() {
     <nav className="flex justify-between items-center p-4 border-b">
       <h1>NEXT BLOG</h1>
       {session ? (
-        <Link href={"/api/auth/signout?callbackUrl=/"}>
-          <button className="bg-blue-500 px-4 py-2 rounded cursor-pointer">
-            Logout
-          </button>
-        </Link>
+        <div className="flex justify-between items-center gap-2">
+          <Link href={"/create-post"}>
+            <button className="bg-blue-500 px-4 py-2 rounded cursor-pointer">
+              Create Post
+            </button>
+          </Link>
+          <Link href={"/api/auth/signout?callbackUrl=/"}>
+            <button className="bg-blue-500 px-4 py-2 rounded cursor-pointer">
+              Logout
+            </button>
+          </Link>
+        </div>
       ) : (
         <div className="flex justify-between items-center gap-2">
           <Link href={"/register"}>
