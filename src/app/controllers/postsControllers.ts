@@ -11,6 +11,8 @@ type PostErrors = {
 
 export type PostFormState = {
   errors: PostErrors;
+  title?: string;
+  content?: string;
 };
 
 export const createPost = async (
@@ -20,7 +22,7 @@ export const createPost = async (
 ) => {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
-  const image = formData.get("image") as string;
+  const image = formData.get("image") as File;
 
   const errors: PostErrors = {};
   if (!title) {
@@ -30,13 +32,12 @@ export const createPost = async (
   if (!content) {
     errors.content = "Content is required";
   }
-
-  if (!image) {
+  if (!image.size) {
     errors.image = "Image is required";
   }
 
   if (Object.keys(errors).length > 0) {
-    return { errors };
+    return { errors, title, content, image };
   }
 
   await addPost(id, title, content, image);
