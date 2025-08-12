@@ -16,8 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>
-          <Navbar />
+        <Navbar />
+        <div className="max-w-6xl mx-auto p-4">
           <AuthSessionProvider>{children}</AuthSessionProvider>
         </div>
       </body>
