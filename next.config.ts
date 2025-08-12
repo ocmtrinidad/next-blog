@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      new URL(
+        "https://res.cloudinary.com/dihu84tof/image/upload/v1754970842/next-blog/**"
+      ),
+    ],
+  },
 };
 
 export default nextConfig;
