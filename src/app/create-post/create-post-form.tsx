@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { PostFormState, createPost } from "../controllers/postsControllers";
-import { UserType } from "@/models/users";
+import { UserType } from "@/models/usersModels";
 
 export default function CreatePostForm({ user }: { user: UserType }) {
   const initialState: PostFormState = {
