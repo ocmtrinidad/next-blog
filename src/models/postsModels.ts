@@ -40,4 +40,17 @@ export const addPost = async (
     .end(buffer);
 };
 
+export const getPosts = async () => {
+  return await prisma.post.findMany({
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+};
+
 export default prisma;
