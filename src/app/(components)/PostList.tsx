@@ -1,7 +1,8 @@
 "use client";
 
+import { Post } from "@/models/postsModels";
 import Image from "next/image";
-import { Post } from "../page";
+import Link from "next/link";
 
 export default function PostList({ posts }: { posts: Post[] }) {
   return (
@@ -10,7 +11,9 @@ export default function PostList({ posts }: { posts: Post[] }) {
         <div key={post.id} className="border flex justify-between mb-4 rounded">
           <div className="flex flex-col justify-between p-4">
             <div>
-              <p>{post.title}</p>
+              <Link href={`/post/${post.id}`} className="text-xl font-bold">
+                {post.title}
+              </Link>
               <p>{post.content}</p>
             </div>
             <p>By: {post.author.name}</p>
