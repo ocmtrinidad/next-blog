@@ -12,6 +12,5 @@ export type Post = {
 export default async function Home() {
   const posts: Post[] = await getPosts();
 
-  // Does not reload the page when a new post is added. Use client side.
   return <PostList posts={posts} />;
 }
