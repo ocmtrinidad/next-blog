@@ -1,26 +1,17 @@
 import { getPosts } from "@/models/postsModels";
-import Image from "next/image";
+import PostList from "./(components)/PostList";
+
+export type Post = {
+  id: string;
+  title: string;
+  content: string;
+  image: string;
+  author: { name: string };
+};
 
 export default async function Home() {
-  const posts = await getPosts();
+  const posts: Post[] = await getPosts();
 
-  return (
-    <>
-      {posts.map((post) => (
-        <div key={post.id} className="border flex justify-between">
-          <div className="p-4 mb-4">
-            <p>{post.title}</p>
-            <p>{post.content}</p>
-          </div>
-          <Image
-            src={post.image}
-            alt={post.title}
-            width={250}
-            height={250}
-            priority={true}
-          />
-        </div>
-      ))}
-    </>
-  );
+  // Does not reload the page when a new post is added. Use client side.
+  return <PostList posts={posts} />;
 }
