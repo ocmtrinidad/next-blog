@@ -17,27 +17,37 @@ export const addPost = async (
 ) => {
   const arrayBuffer = await image.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
-  cloudinary.uploader
-    .upload_stream(
-      { resource_type: "image", folder: "next-blog" },
-      async (error, result) => {
-        if (error) {
-          throw new Error("Failed to upload image");
+
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream(
+        { resource_type: "image", folder: "next-blog" },
+        async (error, result) => {
+          if (error) {
+            reject(new Error("Failed to upload image"));
+            return;
+          }
+          if (!result) {
+            reject(new Error("No result returned from Cloudinary upload"));
+            return;
+          }
+          try {
+            const post = await prisma.post.create({
+              data: {
+                authorId: id,
+                title,
+                content,
+                image: result.secure_url,
+              },
+            });
+            resolve(post);
+          } catch (dbError) {
+            reject(dbError);
+          }
         }
-        if (!result) {
-          throw new Error("No result returned from Cloudinary upload");
-        }
-        return await prisma.post.create({
-          data: {
-            authorId: id,
-            title,
-            content,
-            image: result.secure_url,
-          },
-        });
-      }
-    )
-    .end(buffer);
+      )
+      .end(buffer);
+  });
 };
 
 export const getPosts = async () => {
@@ -49,6 +59,9 @@ export const getPosts = async () => {
           name: true,
         },
       },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 };
