@@ -9,6 +9,14 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export type Post = {
+  id: string;
+  title: string;
+  content: string;
+  image: string;
+  author: { name: string };
+};
+
 export const addPost = async (
   id: string,
   title: string,
@@ -62,6 +70,20 @@ export const getPosts = async () => {
     },
     orderBy: {
       createdAt: "desc",
+    },
+  });
+};
+
+export const getPost = async (id: string) => {
+  return await prisma.post.findUnique({
+    where: { id },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
     },
   });
 };
