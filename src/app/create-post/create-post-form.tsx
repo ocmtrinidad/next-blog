@@ -19,11 +19,17 @@ export default function CreatePostForm({ user }: { user: UserType }) {
   );
 
   return (
-    <form action={formAction}>
-      <h2>Create Post Page</h2>
+    <form action={formAction} className="flex flex-col gap-4">
+      <h2 className="text-xl font-bold">Create A Post</h2>
       <div>
         <label htmlFor="title">Title:</label>
-        <input type="text" name="title" id="title" defaultValue={state.title} />
+        <input
+          type="text"
+          name="title"
+          id="title"
+          defaultValue={state.title}
+          className="border rounded p-2 w-full"
+        />
         {state.errors.title && (
           <p className="text-red-500">{state.errors.title}</p>
         )}
@@ -35,6 +41,7 @@ export default function CreatePostForm({ user }: { user: UserType }) {
           name="content"
           id="content"
           defaultValue={state.content}
+          className="border rounded p-2 w-full"
         ></textarea>
         {state.errors.content && (
           <p className="text-red-500">{state.errors.content}</p>
@@ -43,7 +50,12 @@ export default function CreatePostForm({ user }: { user: UserType }) {
 
       <div>
         <label htmlFor="image">Image:</label>
-        <input type="file" name="image" id="image" />
+        <input
+          type="file"
+          name="image"
+          id="image"
+          className="border rounded p-2 w-full"
+        />
         {state.errors.image && (
           <p className="text-red-500">{state.errors.image}</p>
         )}
