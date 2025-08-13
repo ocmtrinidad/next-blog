@@ -1,6 +1,7 @@
 "use server";
 
 import { addPost } from "@/models/postsModels";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 type PostErrors = {
@@ -41,5 +42,6 @@ export const createPost = async (
   }
 
   await addPost(id, title, content, image);
+  revalidatePath("/");
   redirect("/");
 };
