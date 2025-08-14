@@ -38,4 +38,19 @@ export const getUserByEmail = async (email: string) => {
   return null;
 };
 
+export const getUserById = async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+    omit: {
+      password: true,
+    },
+  });
+  if (user) {
+    return user;
+  }
+  return null;
+};
+
 export default prisma;
