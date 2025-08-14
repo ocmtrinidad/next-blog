@@ -15,6 +15,7 @@ export type Post = {
   content: string;
   image: string;
   author: { name: string };
+  createdAt: Date;
 };
 
 export const addPost = async (
