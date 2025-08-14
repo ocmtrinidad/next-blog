@@ -14,7 +14,7 @@ export type Post = {
   title: string;
   content: string;
   image: string;
-  author: { name: string };
+  author: { id: string; name: string };
   createdAt: Date;
 };
 
