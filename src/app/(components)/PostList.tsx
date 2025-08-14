@@ -14,7 +14,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
         <div key={post.id} className="border flex justify-between mb-4 rounded">
           <div className="flex flex-col p-4 flex-1 h-[250px]">
             <PostHeader post={post} />
-            <p className="overflow-hidden">{post.content}</p>
+            <p className="overflow-hidden mt-2">{post.content}</p>
           </div>
           <Image
             src={post.image}
