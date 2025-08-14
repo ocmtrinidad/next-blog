@@ -33,7 +33,7 @@ export default function RegisterPage() {
       </div>
 
       <div>
-        <label htmlFor="username">Email:</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
           name="email"
