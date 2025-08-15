@@ -1,6 +1,6 @@
 "use server";
 
-import { addUser } from "@/models/usersModels";
+import { addUser, updateUser } from "@/models/usersModels";
 import { redirect } from "next/navigation";
 
 type UserErrors = {
@@ -44,5 +44,31 @@ export const createUser = async (prevState: FormData, formData: FormData) => {
   }
 
   await addUser(name, email, password);
+  redirect("/");
+};
+
+export const updateUserProfile = async (
+  id: string,
+  prevState: FormData,
+  formData: FormData
+) => {
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+
+  const errors: UserErrors = {};
+  if (!name) {
+    errors.name = "Name is required";
+  }
+
+  if (!email) {
+    errors.email = "Email is required";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { errors, name, email };
+  }
+
+  // Do a password compare first?
+  await updateUser(id, name, email);
   redirect("/");
 };
