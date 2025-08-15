@@ -15,6 +15,11 @@ export default async function Navbar() {
               Create Post
             </button>
           </Link>
+          <Link href={"/profile"}>
+            <button className="bg-blue-500 px-4 py-2 rounded cursor-pointer">
+              Profile
+            </button>
+          </Link>
           <Link href={"/api/auth/signout?callbackUrl=/"}>
             <button className="bg-blue-500 px-4 py-2 rounded cursor-pointer">
               Logout
