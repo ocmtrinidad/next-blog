@@ -2,6 +2,7 @@
 
 import { addUser, updateUser } from "@/models/usersModels";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 type UserErrors = {
   name?: string;
@@ -68,7 +69,21 @@ export const updateUserProfile = async (
     return { errors, name, email };
   }
 
-  // Do a password compare first?
-  await updateUser(id, name, email);
-  redirect("/");
+  try {
+    await updateUser(id, name, email);
+
+    revalidatePath("/profile");
+    revalidatePath("/");
+
+    // The session will be automatically updated on the next request due to NextAuth's JWT callback checking the database
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    return {
+      errors: { name: "Failed to update profile. Please try again." },
+      name,
+      email,
+    };
+  }
+
+  redirect("/profile");
 };

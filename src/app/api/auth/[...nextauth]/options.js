@@ -1,4 +1,4 @@
-import { getUserByEmail } from "@/models/usersModels";
+import { getUserByEmail, getUserById } from "@/models/usersModels";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
@@ -59,16 +59,37 @@ export const options = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      // On initial sign in
       if (user) {
         token.role = user.role;
         token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
       }
+
+      // Refresh user data on each request to get updated profile info
+      if (token.id) {
+        try {
+          const freshUser = await getUserById(token.id);
+          if (freshUser) {
+            token.name = freshUser.name;
+            token.email = freshUser.email;
+            token.picture = freshUser.image;
+          }
+        } catch (error) {
+          console.error("Error refreshing user data in JWT callback:", error);
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (token) {
         session.user.role = token.role;
         session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
       }
       return session;
     },
