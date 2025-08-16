@@ -3,6 +3,7 @@
 import { Post } from "@/models/postsModels";
 import Image from "next/image";
 import PostHeader from "./PostHeader";
+import Link from "next/link";
 
 export default function PostList({ posts }: { posts: Post[] }) {
   if (!posts.length) {
@@ -14,15 +15,19 @@ export default function PostList({ posts }: { posts: Post[] }) {
         <div key={post.id} className="border flex justify-between mb-4 rounded">
           <div className="flex flex-col p-4 flex-1 h-[250px]">
             <PostHeader post={post} />
-            <p className="overflow-hidden mt-2">{post.content}</p>
+            <Link href={`/post/${post.id}`} className="overflow-hidden mt-2">
+              <p>{post.content}</p>
+            </Link>
           </div>
-          <Image
-            src={post.image}
-            alt={post.title}
-            width={250}
-            height={250}
-            priority={true}
-          />
+          <Link href={`/post/${post.id}`}>
+            <Image
+              src={post.image}
+              alt={post.title}
+              width={250}
+              height={250}
+              priority={true}
+            />
+          </Link>
         </div>
       ))}
     </>
