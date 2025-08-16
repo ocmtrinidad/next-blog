@@ -78,11 +78,7 @@ export const updateUserProfile = async (
     // The session will be automatically updated on the next request due to NextAuth's JWT callback checking the database
   } catch (error) {
     console.error("Error updating user profile:", error);
-    return {
-      errors: { name: "Failed to update profile. Please try again." },
-      name,
-      email,
-    };
+    return;
   }
 
   redirect("/profile");
