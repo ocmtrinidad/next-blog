@@ -59,7 +59,23 @@ export const addPost = async (
   });
 };
 
-export const getPosts = async () => {
+export const getPosts = async (id?: string) => {
+  if (id) {
+    return await prisma.post.findMany({
+      where: { authorId: id },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
   return await prisma.post.findMany({
     include: {
       author: {
