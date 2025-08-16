@@ -1,5 +1,9 @@
-import { getUserById } from "@/models/usersModels";
+import { getPosts } from "@/models/postsModels";
+import PostList from "@/app/(components)/PostList";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
+import { getUserById } from "@/models/usersModels";
 
 export default async function UserPage({
   params,
@@ -7,15 +11,24 @@ export default async function UserPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const user = await getUserById(id);
 
-  if (user) {
+  const session = await getServerSession(options);
+
+  if (session && session.user.id === id) {
+    redirect("/profile");
+  } else {
+    const [posts, user] = await Promise.all([getPosts(id), getUserById(id)]);
     return (
       <div>
-        <h1 className="text-2xl font-bold">{user?.name}&#39;s Profile Page</h1>
+        <h1 className="text-2xl font-bold mb-4">{user?.name}'s Profile Page</h1>
+        <div className="flex gap-4">
+          <div className="w-2/5"></div>
+
+          <div className="flex-1">
+            <PostList posts={posts} />
+          </div>
+        </div>
       </div>
     );
-  } else {
-    redirect("/");
   }
 }
