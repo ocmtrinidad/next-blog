@@ -1,8 +1,9 @@
 "use server";
 
-import { addUser, updateUser } from "@/models/usersModels";
+import { addUser, updateUser, getUserById } from "@/models/usersModels";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import bcrypt from "bcryptjs";
 
 type UserErrors = {
   name?: string;
@@ -48,13 +49,10 @@ export const createUser = async (prevState: FormData, formData: FormData) => {
   redirect("/");
 };
 
-export const updateUserProfile = async (
-  id: string,
-  prevState: FormData,
-  formData: FormData
-) => {
+export const updateUserProfile = async (id: string, formData: FormData) => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
   const errors: UserErrors = {};
   if (!name) {
@@ -65,21 +63,43 @@ export const updateUserProfile = async (
     errors.email = "Email is required";
   }
 
+  if (!password) {
+    errors.password = "Password is required for verification";
+  }
+
   if (Object.keys(errors).length > 0) {
     return { errors, name, email };
   }
 
   try {
+    const currentUser = await getUserById(id);
+    if (!currentUser) {
+      return {
+        errors: { password: "User not found" },
+        name,
+        email,
+      };
+    }
+
+    const passwordMatch = await bcrypt.compare(password, currentUser.password);
+    if (!passwordMatch) {
+      return {
+        errors: { password: "Incorrect password" },
+        name,
+        email,
+      };
+    }
+
     await updateUser(id, name, email);
 
     revalidatePath("/profile");
     revalidatePath("/");
-
-    // The session will be automatically updated on the next request due to NextAuth's JWT callback checking the database
   } catch (error) {
-    console.error("Error updating user profile:", error);
-    return;
+    console.log("Error updating user profile:", error);
+    return {
+      errors: { name: "Failed to update profile. Please try again." },
+      name,
+      email,
+    };
   }
-
-  redirect("/profile");
 };
