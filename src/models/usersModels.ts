@@ -43,9 +43,6 @@ export const getUserById = async (id: string) => {
     where: {
       id,
     },
-    omit: {
-      password: true,
-    },
   });
   if (user) {
     return user;
