@@ -15,7 +15,9 @@ export default async function ProfilePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Your Profile Page</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        {session.user.name}&apos;s Profile Page
+      </h1>
       <div className="flex gap-4">
         <div className="w-2/5">
           <EditProfileForm user={session.user} />
