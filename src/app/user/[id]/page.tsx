@@ -4,13 +4,17 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 import { getUserById } from "@/models/usersModels";
+import SearchPost from "@/app/(components)/SearchPost";
 
 export default async function UserPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ query?: string }>;
 }) {
   const { id } = await params;
+  const { query } = await searchParams;
 
   const session = await getServerSession(options);
 
@@ -18,7 +22,7 @@ export default async function UserPage({
     redirect("/my-posts");
   } else {
     const [posts, user] = await Promise.all([
-      getPostsByAuthor(id),
+      getPostsByAuthor(id, query),
       getUserById(id),
     ]);
     return (
@@ -29,6 +33,10 @@ export default async function UserPage({
         </div>
 
         <div className="flex-1">
+          <SearchPost
+            route={`/user/${user?.id}`}
+            placeholder={`Search ${user?.name}'s Posts`}
+          />
           <PostList posts={posts} />
         </div>
       </div>

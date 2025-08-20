@@ -114,7 +114,29 @@ export const getPost = async (id: string) => {
   });
 };
 
-export const getPostsByAuthor = async (id: string) => {
+export const getPostsByAuthor = async (id: string, query?: string) => {
+  if (query) {
+    return await prisma.post.findMany({
+      where: {
+        AND: [
+          { authorId: id },
+          { title: { contains: query, mode: "insensitive" } },
+        ],
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        category: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
   return await prisma.post.findMany({
     where: { authorId: id },
     include: {
