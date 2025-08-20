@@ -21,7 +21,10 @@ export default async function CategoryPosts({
   return (
     <>
       <CategoryList categories={categories} selectedCategoryName={name} />
-      <SearchPost route={`/category/${name}`} />
+      <SearchPost
+        route={`/category/${name}`}
+        placeholder={`Search Posts in ${name}`}
+      />
       {!posts || !posts.length ? (
         <p className="text-center">No posts found in this category.</p>
       ) : (

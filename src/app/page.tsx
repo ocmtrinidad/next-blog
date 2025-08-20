@@ -16,7 +16,7 @@ export default async function Home({
   return (
     <>
       <CategoryList categories={categories} selectedCategoryName={null} />
-      <SearchPost route={"/"} />
+      <SearchPost route={"/"} placeholder="Search Posts" />
       <PostList posts={posts} />
     </>
   );
