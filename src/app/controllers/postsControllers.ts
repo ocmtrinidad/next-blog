@@ -92,6 +92,10 @@ export const editPost = async (
     errors.content = "Content is required";
   }
 
+  if (!category) {
+    errors.category = "Category is required";
+  }
+
   if (Object.keys(errors).length > 0) {
     return { errors, title, content };
   }

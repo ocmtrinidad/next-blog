@@ -5,6 +5,7 @@ import { PostFormState, editPost } from "@/app/controllers/postsControllers";
 import BlueButton from "@/app/(components)/BlueButton";
 import { Post } from "@/models/postsModels";
 import { Category } from "@/models/categoryModels";
+import Image from "next/image";
 
 export default function EditPostForm({
   post,
@@ -26,7 +27,15 @@ export default function EditPostForm({
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
-      <h2 className="text-xl font-bold">Edit This Post</h2>
+      <h2 className="text-xl font-bold">Edit Post Page</h2>
+      <Image
+        src={post.image}
+        alt={post.title}
+        width={400}
+        height={400}
+        priority={true}
+        className="self-center"
+      />
       <div>
         <label htmlFor="title">Title:</label>
         <input
@@ -60,8 +69,9 @@ export default function EditPostForm({
           name="category"
           id="category"
           className="border rounded p-2 w-full"
+          defaultValue={state?.category || post.category.id}
         >
-          <option value="" className="text-black">
+          <option value="" className="text-black" disabled>
             --Select A Category--
           </option>
           {categories.map((category) => (
