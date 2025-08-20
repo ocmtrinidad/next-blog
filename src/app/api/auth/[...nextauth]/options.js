@@ -27,12 +27,12 @@ export const options = {
       // Inputs
       credentials: {
         email: {
-          label: "email",
+          label: "Email",
           type: "text",
           placeholder: "Your Email",
         },
         password: {
-          label: "password",
+          label: "Password",
           type: "password",
           placeholder: "Your Password",
         },
