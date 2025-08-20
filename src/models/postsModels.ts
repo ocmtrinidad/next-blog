@@ -60,7 +60,29 @@ export const addPost = async (
   });
 };
 
-export const getPosts = async () => {
+export const getPosts = async (query?: string) => {
+  if (query) {
+    return await prisma.post.findMany({
+      where: {
+        title: {
+          contains: query,
+          mode: "insensitive",
+        },
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        category: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
   return await prisma.post.findMany({
     include: {
       author: {
