@@ -54,6 +54,7 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const bio = formData.get("bio") as string;
+  const image = formData.get("image") as File | undefined;
 
   const errors: UserErrors = {};
   if (!name) {
@@ -91,7 +92,7 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
       };
     }
 
-    await updateUser(id, name, email, bio);
+    await updateUser(id, name, email, bio, image);
 
     revalidatePath("/profile");
     revalidatePath("/");
