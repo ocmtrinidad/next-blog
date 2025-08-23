@@ -66,6 +66,7 @@ export const options = {
         token.name = user.name;
         token.email = user.email;
         token.bio = user.bio;
+        token.picture = user.image;
       }
 
       // Refresh user data on each request to get updated profile info
