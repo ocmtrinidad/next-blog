@@ -5,6 +5,7 @@ import {
   updateUserProfile,
   UserFormState,
 } from "../controllers/usersControllers";
+import Image from "next/image";
 
 export default function EditProfileForm({
   user,
@@ -85,6 +86,26 @@ export default function EditProfileForm({
     <>
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Edit Your Information</h1>
+        <div className="flex flex-col">
+          {user.image && (
+            <Image
+              src={user.image}
+              priority={true}
+              width={100}
+              height={100}
+              alt={user.name}
+              className="rounded-full self-center"
+            ></Image>
+          )}
+
+          <label htmlFor="image">Picture:</label>
+          <input
+            type="file"
+            name="image"
+            className="border rounded p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
         <div>
           <label htmlFor="name">Name:</label>
           <input
