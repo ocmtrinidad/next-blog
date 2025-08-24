@@ -35,7 +35,7 @@ export default async function PostList({ posts }: { posts: Post[] }) {
               </Link>
               {session?.user.id === post.author.id && (
                 <div className="flex gap-2 mb-2">
-                  <Link href={`/my-posts/${post.id}`}>
+                  <Link href={`/post/${post.id}/edit`}>
                     <BlueButton>Edit</BlueButton>
                   </Link>
                   <RedButton postId={post.id}>DELETE</RedButton>

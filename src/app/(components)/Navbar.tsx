@@ -14,7 +14,7 @@ export default async function Navbar() {
           <Link href={"/create-post"}>
             <BlueButton>Create Post</BlueButton>
           </Link>
-          <Link href={"/my-posts"}>
+          <Link href={`/user/${session.user.id}`}>
             <BlueButton>My Posts</BlueButton>
           </Link>
           <Link href={"/profile"}>
