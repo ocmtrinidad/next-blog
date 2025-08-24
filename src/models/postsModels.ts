@@ -12,7 +12,7 @@ export type Post = {
   title: string;
   content: string;
   image: string;
-  author: { id: string; name: string };
+  author: { id: string; name: string; image: string | null };
   createdAt: Date;
   category: { id: string; name: string };
 };
@@ -74,6 +74,7 @@ export const getPosts = async (query?: string) => {
           select: {
             id: true,
             name: true,
+            image: true,
           },
         },
         category: true,
@@ -89,6 +90,7 @@ export const getPosts = async (query?: string) => {
         select: {
           id: true,
           name: true,
+          image: true,
         },
       },
       category: true,
@@ -107,6 +109,7 @@ export const getPost = async (id: string) => {
         select: {
           id: true,
           name: true,
+          image: true,
         },
       },
       category: true,
@@ -128,6 +131,7 @@ export const getPostsByAuthor = async (id: string, query?: string) => {
           select: {
             id: true,
             name: true,
+            image: true,
           },
         },
         category: true,
@@ -144,6 +148,7 @@ export const getPostsByAuthor = async (id: string, query?: string) => {
         select: {
           id: true,
           name: true,
+          image: true,
         },
       },
       category: true,
@@ -166,6 +171,7 @@ export const getPostsByCategory = async (category: string, query?: string) => {
           select: {
             id: true,
             name: true,
+            image: true,
           },
         },
         category: true,
@@ -179,6 +185,7 @@ export const getPostsByCategory = async (category: string, query?: string) => {
         select: {
           id: true,
           name: true,
+          image: true,
         },
       },
       category: true,
