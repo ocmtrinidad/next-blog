@@ -3,11 +3,16 @@ import Image from "next/image";
 import PostHeader from "./PostHeader";
 import Link from "next/link";
 import BlueButton from "./BlueButton";
+import RedButton from "./RedButton";
+import { options } from "../api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
 
-export default function PostList({ posts }: { posts: Post[] }) {
+export default async function PostList({ posts }: { posts: Post[] }) {
   if (!posts.length) {
     return <p className="text-center">No posts available</p>;
   }
+
+  const session = await getServerSession(options);
 
   return (
     <>
@@ -21,12 +26,22 @@ export default function PostList({ posts }: { posts: Post[] }) {
             >
               <p>{post.content}</p>
             </Link>
-            <Link
-              href={`/category/${post.category.name}`}
-              className="max-w-fit"
-            >
-              <BlueButton>{post.category.name}</BlueButton>
-            </Link>
+            <div className="flex justify-between">
+              <Link
+                href={`/category/${post.category.name}`}
+                className="max-w-fit"
+              >
+                <BlueButton>{post.category.name}</BlueButton>
+              </Link>
+              {session?.user.id === post.author.id && (
+                <div className="flex gap-2 mb-2">
+                  <Link href={`/my-posts/${post.id}`}>
+                    <BlueButton>Edit</BlueButton>
+                  </Link>
+                  <RedButton postId={post.id}>DELETE</RedButton>
+                </div>
+              )}
+            </div>
           </div>
           <Link href={`/post/${post.id}`}>
             <Image
