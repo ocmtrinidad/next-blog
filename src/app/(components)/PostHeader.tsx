@@ -12,14 +12,16 @@ export default async function PostHeader({ post }: { post: Post }) {
         href={`/user/${post.author.id}`}
         className="max-w-fit flex items-center gap-2"
       >
-        <Image
-          src={post.author.image}
-          width={50}
-          height={50}
-          alt={post.author.name}
-          priority={true}
-          className="rounded-full"
-        />
+        {post.author.image && (
+          <Image
+            src={post.author.image}
+            width={50}
+            height={50}
+            alt={post.author.name}
+            priority={true}
+            className="rounded-full"
+          />
+        )}
         <p>{post.author.name}</p>
       </Link>
       <p>{post.createdAt.toDateString()}</p>
