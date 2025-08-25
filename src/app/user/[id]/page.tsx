@@ -2,6 +2,7 @@ import { getPostsByAuthor } from "@/models/postsModels";
 import PostList from "@/app/(components)/PostList";
 import { getUserById } from "@/models/usersModels";
 import SearchPost from "@/app/(components)/SearchPost";
+import Image from "next/image";
 
 export default async function UserPage({
   params,
@@ -16,20 +17,28 @@ export default async function UserPage({
     getPostsByAuthor(id, query),
     getUserById(id),
   ]);
+
   return (
-    <div className="flex gap-4">
-      <div className="w-2/5">
+    <div className="flex flex-col gap-4">
+      <div className="border-b">
         <h1 className="text-2xl font-bold">{user?.name}'s Profile Page</h1>
+        {user && user.image && (
+          <Image
+            src={user.image}
+            width={50}
+            height={50}
+            alt={user.name}
+            priority={true}
+            className="rounded-full"
+          />
+        )}
         <p>{user?.bio}</p>
       </div>
-
-      <div className="flex-1">
-        <SearchPost
-          route={`/user/${user?.id}`}
-          placeholder={`Search ${user?.name}'s Posts`}
-        />
-        <PostList posts={posts} />
-      </div>
+      <SearchPost
+        route={`/user/${user?.id}`}
+        placeholder={`Search ${user?.name}'s Posts`}
+      />
+      <PostList posts={posts} />
     </div>
   );
 }
