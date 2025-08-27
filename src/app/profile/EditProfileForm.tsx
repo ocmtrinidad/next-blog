@@ -197,7 +197,7 @@ export default function EditProfileForm({
                 disabled={isSubmitting}
                 className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
               >
-                {isSubmitting ? "Verifying..." : "Confirm Changes"}
+                {isSubmitting ? "Verifying..." : "Confirm"}
               </button>
             </div>
           </div>
