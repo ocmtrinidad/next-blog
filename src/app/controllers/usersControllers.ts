@@ -16,6 +16,7 @@ export type UserFormState = {
   errors: UserErrors;
   name: string;
   email: string;
+  password: string;
 };
 
 export const createUser = async (prevState: FormData, formData: FormData) => {
