@@ -1,6 +1,8 @@
 "use server";
 
 import { addPost, deletePost, updatePost } from "@/models/postsModels";
+import { getUserById } from "@/models/usersModels";
+import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -62,16 +64,34 @@ export const createPost = async (
   redirect("/");
 };
 
-export const removePost = async (id: string) => {
+export const removePost = async (
+  postId: string,
+  userId: string,
+  password: string
+) => {
   try {
-    await deletePost(id);
-    revalidatePath("/my-posts");
+    const currentUser = await getUserById(userId);
+    if (!currentUser) {
+      return {
+        errors: { password: "User not found" },
+      };
+    }
+
+    const passwordMatch = await bcrypt.compare(password, currentUser.password);
+    if (!passwordMatch) {
+      return {
+        errors: { password: "Incorrect password" },
+      };
+    }
+
+    await deletePost(postId);
+    revalidatePath("/");
   } catch (error) {
     console.log("Error deleting post:", error);
     return;
   }
 
-  redirect("/my-posts");
+  redirect("/");
 };
 
 export const editPost = async (
@@ -102,7 +122,7 @@ export const editPost = async (
 
   try {
     await updatePost(postId, title, content, category);
-    revalidatePath("/my-posts");
+    revalidatePath("/");
   } catch (error) {
     console.log("Error updating post:", error);
     return {
@@ -111,5 +131,5 @@ export const editPost = async (
       content,
     };
   }
-  redirect("/my-posts");
+  redirect("/");
 };
