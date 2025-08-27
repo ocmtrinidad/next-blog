@@ -49,7 +49,7 @@ export default async function PostList({ posts }: { posts: Post[] }) {
                       </svg>
                     </BlueButton>
                   </Link>
-                  <RedButton postId={post.id} />
+                  <RedButton postId={post.id} userId={session.user.id} />
                 </div>
               )}
             </div>
