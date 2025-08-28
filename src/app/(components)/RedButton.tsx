@@ -76,10 +76,7 @@ export default function RedButton({
       </button>
 
       {showPasswordModal && (
-        <form
-          onSubmit={handleFormSubmit}
-          className="fixed inset-0 bg-[#333333] flex items-center justify-center z-50 text-black"
-        >
+        <form onSubmit={handleFormSubmit}>
           <PasswordModal
             password={password}
             setPassword={setPassword}

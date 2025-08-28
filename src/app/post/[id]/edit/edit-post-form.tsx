@@ -165,16 +165,14 @@ export default function EditPostForm({
       )}
 
       {showPasswordModal && (
-        <div className="fixed inset-0 bg-[#333333] flex items-center justify-center z-50 text-black">
-          <PasswordModal
-            password={password}
-            setPassword={setPassword}
-            passwordError={passwordError}
-            isSubmitting={isSubmitting}
-            handlePasswordConfirm={handlePasswordConfirm}
-            handleModalClose={handleModalClose}
-          />
-        </div>
+        <PasswordModal
+          password={password}
+          setPassword={setPassword}
+          passwordError={passwordError}
+          isSubmitting={isSubmitting}
+          handlePasswordConfirm={handlePasswordConfirm}
+          handleModalClose={handleModalClose}
+        />
       )}
     </form>
   );
