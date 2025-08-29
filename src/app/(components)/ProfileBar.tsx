@@ -17,7 +17,7 @@ export default function ProfileBar({ userId }: { userId: string }) {
       )}
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-50 z-50 bg-[#333333] border-r transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-fit z-50 bg-[#333333] border-r transition-transform duration-300 ${
           showBar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
