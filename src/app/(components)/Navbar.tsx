@@ -8,8 +8,10 @@ export default async function Navbar() {
   const session = await getServerSession(options);
 
   return (
-    <nav className="flex justify-between items-center p-4 border-b">
-      <Link href={"/"}>NEXT BLOG</Link>
+    <nav className="flex gap-2 items-center p-4 border-b">
+      <Link href={"/"}>
+        <BlueButton>Home</BlueButton>
+      </Link>
       {session ? (
         <ProfileBar userId={session.user.id} />
       ) : (
