@@ -3,48 +3,55 @@
 import Link from "next/link";
 import BlueButton from "./BlueButton";
 import { useState } from "react";
+import SidebarLinks from "./SidebarLinks";
 
-export default function ProfileBar({ userId }: { userId: string }) {
-  const [showBar, setShowBar] = useState(false);
+export default function Sidebar({ userId }: { userId: string }) {
+  const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <>
-      {showBar && (
+      {showSidebar && (
         <div
           className="fixed inset-0 z-40 bg-black opacity-50 cursor-pointer"
-          onClick={() => setShowBar(false)}
+          onClick={() => setShowSidebar(false)}
         />
       )}
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-fit z-50 bg-[#333333] border-r transition-transform duration-300 ${
-          showBar ? "translate-x-0" : "-translate-x-full"
+          showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col gap-2">
           {/* x button */}
           <button
             className="self-end text-white cursor-pointer p-4"
-            onClick={() => setShowBar(false)}
+            onClick={() => setShowSidebar(false)}
           >
             &times;
           </button>
-          <Link href={"/create-post"} className="px-4">
-            <BlueButton>Create Post</BlueButton>
-          </Link>
-          <Link href={`/user/${userId}`} className="px-4">
-            <BlueButton>My Posts</BlueButton>
-          </Link>
-          <Link href={"/profile"} className="px-4">
-            <BlueButton>Profile</BlueButton>
-          </Link>
+          <SidebarLinks
+            setShowSidebar={setShowSidebar}
+            url={"/create-post"}
+            text={"Create Post"}
+          />
+          <SidebarLinks
+            setShowSidebar={setShowSidebar}
+            url={`/user/${userId}`}
+            text={"My Posts"}
+          />
+          <SidebarLinks
+            setShowSidebar={setShowSidebar}
+            url={"/profile"}
+            text={"Profile"}
+          />
           <Link href={"/api/auth/signout?callbackUrl=/"} className="px-4">
             <BlueButton>Logout</BlueButton>
           </Link>
         </div>
       </div>
 
-      <div onClick={() => setShowBar(true)}>
+      <div onClick={() => setShowSidebar(true)}>
         <BlueButton>Menu</BlueButton>
       </div>
     </>
