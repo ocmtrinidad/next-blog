@@ -2,7 +2,7 @@ import { getPostsByCategory, Post } from "@/models/postsModels";
 import PostList from "@/app/(components)/PostList";
 import CategoryList from "@/app/(components)/CategoryList";
 import { Category, getCategories } from "@/models/categoryModels";
-import SearchPost from "@/app/(components)/SearchPost";
+import SearchBar from "@/app/(components)/SearchBar";
 
 export default async function CategoryPosts({
   params,
@@ -21,7 +21,7 @@ export default async function CategoryPosts({
   return (
     <>
       <CategoryList categories={categories} selectedCategoryName={name} />
-      <SearchPost
+      <SearchBar
         route={`/category/${name}`}
         placeholder={`Search Posts in ${name}`}
       />

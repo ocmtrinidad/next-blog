@@ -2,7 +2,7 @@ import { getPosts, Post } from "@/models/postsModels";
 import PostList from "./(components)/PostList";
 import CategoryList from "./(components)/CategoryList";
 import { Category, getCategories } from "@/models/categoryModels";
-import SearchPost from "./(components)/SearchPost";
+import SearchBar from "./(components)/SearchBar";
 
 export default async function Home({
   searchParams,
@@ -16,7 +16,7 @@ export default async function Home({
   return (
     <>
       <CategoryList categories={categories} selectedCategoryName={null} />
-      <SearchPost route={"/"} placeholder="Search Posts" />
+      <SearchBar route={"/"} placeholder="Search Posts" />
       <PostList posts={posts} />
     </>
   );

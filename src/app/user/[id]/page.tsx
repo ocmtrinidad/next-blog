@@ -1,7 +1,7 @@
 import { getPostsByAuthor } from "@/models/postsModels";
 import PostList from "@/app/(components)/PostList";
 import { getUserById } from "@/models/usersModels";
-import SearchPost from "@/app/(components)/SearchPost";
+import SearchBar from "@/app/(components)/SearchBar";
 import Image from "next/image";
 
 export default async function UserPage({
@@ -34,7 +34,7 @@ export default async function UserPage({
         )}
         <p>{user?.bio}</p>
       </div>
-      <SearchPost
+      <SearchBar
         route={`/user/${user?.id}`}
         placeholder={`Search ${user?.name}'s Posts`}
       />
