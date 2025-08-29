@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import Link from "next/link";
 import BlueButton from "./BlueButton";
-import ProfileBar from "./ProfileBar";
+import Sidebar from "./Sidebar";
 
 export default async function Navbar() {
   const session = await getServerSession(options);
@@ -13,7 +13,7 @@ export default async function Navbar() {
         <BlueButton>Home</BlueButton>
       </Link>
       {session ? (
-        <ProfileBar userId={session.user.id} />
+        <Sidebar userId={session.user.id} />
       ) : (
         <div className="flex justify-between items-center gap-2">
           <Link href={"/register"}>
