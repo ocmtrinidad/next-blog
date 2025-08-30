@@ -17,7 +17,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
             <PostHeader post={post} />
             <Link
               href={`/post/${post.id}`}
-              className="overflow-hidden mt-2 flex-1"
+              className="overflow-hidden mt-2 flex-1 mb-2"
             >
               <p>{post.content}</p>
             </Link>
