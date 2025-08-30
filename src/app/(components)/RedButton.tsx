@@ -4,12 +4,13 @@ import { useState } from "react";
 import { removePost } from "../controllers/postsControllers";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import PasswordModal from "./PasswordModal";
+import { Post } from "@/models/postsModels";
 
 export default function RedButton({
-  postId,
+  post,
   userId,
 }: {
-  postId: string;
+  post: Post;
   userId: string;
 }) {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -31,7 +32,7 @@ export default function RedButton({
     }
     setIsSubmitting(true);
     try {
-      const result = await removePost(postId, userId, password);
+      const result = await removePost(post, userId, password);
       if (result && result.errors && Object.keys(result.errors).length > 0) {
         if (result.errors.password) {
           setPasswordError(result.errors.password);

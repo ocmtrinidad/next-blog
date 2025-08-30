@@ -26,7 +26,7 @@ export default async function DisplayPostUserButtons({ post }: { post: Post }) {
               </svg>
             </BlueButton>
           </Link>
-          <RedButton postId={post.id} userId={session.user.id} />
+          <RedButton post={post} userId={session.user.id} />
         </div>
       )}
     </>
