@@ -17,7 +17,7 @@ export default function PasswordModal({
     <div className="fixed inset-0 bg-[#333333] flex items-center justify-center z-50 text-black">
       <div className="bg-white rounded-lg p-4 flex flex-col gap-4">
         <h2 className="text-xl font-bold">Verify Your Identity</h2>
-        <p>Please enter your password to confirm these changes.</p>
+        <p>Please enter your password.</p>
 
         <div>
           <label htmlFor="password">Password:</label>
