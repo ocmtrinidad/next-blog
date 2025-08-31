@@ -1,6 +1,6 @@
 "use server";
 
-import { addPost, deletePost, updatePost } from "@/models/postsModels";
+import { addPost, deletePost, Post, updatePost } from "@/models/postsModels";
 import { getUserById } from "@/models/usersModels";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
@@ -67,7 +67,7 @@ export const createPost = async (
 };
 
 export const removePost = async (
-  postId: string,
+  post: Post,
   userId: string,
   password: string
 ) => {
@@ -86,7 +86,7 @@ export const removePost = async (
       };
     }
 
-    await deletePost(postId);
+    await deletePost(post);
     revalidatePath("/");
   } catch (error) {
     console.log("Error deleting post:", error);
