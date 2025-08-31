@@ -67,12 +67,24 @@ export const updateUser = async (
     const arrayBuffer = await image?.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    cloudinary.uploader.destroy(
+      `next-blog/profile-picture/profile_${id}`,
+      (error, result) => {
+        if (error) {
+          console.log("Error deleting image from Cloudinary:", error);
+          return;
+        } else {
+          console.log("Cloudinary deletion result:", result);
+        }
+      }
+    );
     return new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
             resource_type: "image",
-            folder: "next-blog",
+            folder: "next-blog/profile-picture",
+            public_id: `profile_${id}`,
             transformation: {
               height: 100,
               width: 100,
