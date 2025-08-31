@@ -30,7 +30,11 @@ export const addPost = async (
   return new Promise((resolve, reject) => {
     cloudinary.uploader
       .upload_stream(
-        { resource_type: "image", folder: "next-blog" },
+        {
+          resource_type: "image",
+          folder: "next-blog/post",
+          public_id: `${title}_${id}`,
+        },
         async (error, result) => {
           if (error) {
             reject(new Error("Failed to upload image"));
@@ -41,6 +45,7 @@ export const addPost = async (
             return;
           }
           try {
+            console.log("Cloudinary upload result:", result.public_id);
             const post = await prisma.post.create({
               data: {
                 authorId: id,
@@ -193,9 +198,20 @@ export const getPostsByCategory = async (category: string, query?: string) => {
   });
 };
 
-export const deletePost = async (id: string) => {
+export const deletePost = async (post: Post) => {
+  cloudinary.uploader.destroy(
+    `next-blog/post/${post.title}_${post.author.id}`,
+    (error, result) => {
+      if (error) {
+        console.log("Error deleting image from Cloudinary:", error);
+        return;
+      } else {
+        console.log("Cloudinary deletion result:", result);
+      }
+    }
+  );
   return await prisma.post.delete({
-    where: { id },
+    where: { id: post.id },
   });
 };
 
