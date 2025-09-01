@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import EditPostForm from "./edit-post-form";
 import { redirect } from "next/navigation";
-import { getPost } from "@/models/postsModels";
+import { getPost } from "@/models/postModels";
 import { getCategories } from "@/models/categoryModels";
 
 export default async function EditPostPage({

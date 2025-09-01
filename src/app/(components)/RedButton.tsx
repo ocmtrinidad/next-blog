@@ -4,7 +4,7 @@ import { useState } from "react";
 import { removePost } from "../controllers/postsControllers";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import PasswordModal from "./PasswordModal";
-import { Post } from "@/models/postsModels";
+import { Post } from "@/models/postModels";
 
 export default function RedButton({
   post,

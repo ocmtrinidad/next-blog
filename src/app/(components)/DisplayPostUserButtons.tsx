@@ -1,4 +1,4 @@
-import { Post } from "@/models/postsModels";
+import { Post } from "@/models/postModels";
 import { options } from "../api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 import Link from "next/link";

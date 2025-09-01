@@ -1,6 +1,6 @@
-import { getPostsByAuthor } from "@/models/postsModels";
+import { getPostsByAuthor } from "@/models/postModels";
 import PostList from "@/app/(components)/PostList";
-import { getUserById } from "@/models/usersModels";
+import { getUserById } from "@/models/userModels";
 import SearchBar from "@/app/(components)/SearchBar";
 import Image from "next/image";
 

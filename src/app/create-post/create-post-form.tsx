@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { PostFormState, createPost } from "../controllers/postsControllers";
-import { UserType } from "@/models/usersModels";
+import { UserType } from "@/models/userModels";
 import { Category } from "@/models/categoryModels";
 import BlueButton from "../(components)/BlueButton";
 import { isRedirectError } from "next/dist/client/components/redirect-error";

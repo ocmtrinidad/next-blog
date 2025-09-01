@@ -1,4 +1,4 @@
-import { getPosts, Post } from "@/models/postsModels";
+import { getPosts, Post } from "@/models/postModels";
 import PostList from "./(components)/PostList";
 import CategoryList from "./(components)/CategoryList";
 import { Category, getCategories } from "@/models/categoryModels";

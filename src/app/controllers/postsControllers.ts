@@ -1,7 +1,7 @@
 "use server";
 
-import { addPost, deletePost, Post, updatePost } from "@/models/postsModels";
-import { getUserById } from "@/models/usersModels";
+import { addPost, deletePost, Post, updatePost } from "@/models/postModels";
+import { getUserById } from "@/models/userModels";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

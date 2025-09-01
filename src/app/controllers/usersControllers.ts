@@ -1,6 +1,6 @@
 "use server";
 
-import { addUser, updateUser, getUserById } from "@/models/usersModels";
+import { addUser, updateUser, getUserById } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";

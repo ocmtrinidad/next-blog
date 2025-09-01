@@ -1,5 +1,5 @@
 import PostHeader from "@/app/(components)/PostHeader";
-import { getPost, Post } from "@/models/postsModels";
+import { getPost, Post } from "@/models/postModels";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 

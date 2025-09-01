@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { editPost, PostFormState } from "@/app/controllers/postsControllers";
 import BlueButton from "@/app/(components)/BlueButton";
-import { Post } from "@/models/postsModels";
+import { Post } from "@/models/postModels";
 import { Category } from "@/models/categoryModels";
 import Image from "next/image";
 import PasswordModal from "@/app/(components)/PasswordModal";

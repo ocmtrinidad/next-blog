@@ -1,4 +1,4 @@
-import { Post } from "@/models/postsModels";
+import { Post } from "@/models/postModels";
 import Link from "next/link";
 import Image from "next/image";
 import DisplayPostUserButtons from "./DisplayPostUserButtons";
