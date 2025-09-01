@@ -1,5 +1,6 @@
 import prisma from "../../lib/prisma";
 import { v2 as cloudinary } from "cloudinary";
+import { Like } from "./likeModels";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -15,6 +16,7 @@ export type Post = {
   author: { id: string; name: string; image: string | null };
   createdAt: Date;
   category: { id: string; name: string };
+  Like: Like[];
 };
 
 export const addPost = async (
@@ -83,6 +85,7 @@ export const getPosts = async (query?: string) => {
           },
         },
         category: true,
+        Like: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -99,6 +102,7 @@ export const getPosts = async (query?: string) => {
         },
       },
       category: true,
+      Like: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -118,6 +122,7 @@ export const getPost = async (id: string) => {
         },
       },
       category: true,
+      Like: true,
     },
   });
 };
@@ -140,6 +145,7 @@ export const getPostsByAuthor = async (id: string, query?: string) => {
           },
         },
         category: true,
+        Like: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -157,6 +163,7 @@ export const getPostsByAuthor = async (id: string, query?: string) => {
         },
       },
       category: true,
+      Like: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -180,6 +187,7 @@ export const getPostsByCategory = async (category: string, query?: string) => {
           },
         },
         category: true,
+        Like: true,
       },
     });
   }
@@ -194,6 +202,7 @@ export const getPostsByCategory = async (category: string, query?: string) => {
         },
       },
       category: true,
+      Like: true,
     },
   });
 };
