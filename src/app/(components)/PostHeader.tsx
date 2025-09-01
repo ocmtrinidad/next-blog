@@ -27,6 +27,9 @@ export default function PostHeader({ post }: { post: Post }) {
       </Link>
       <div className="flex items-center gap-2 mb-2 flex-col md:flex-row">
         <p>{post.createdAt.toDateString()}</p>
+        <p className="border-l pl-2">
+          {post.Like.length} {post.Like.length === 1 ? "Like" : "Likes"}
+        </p>
         <DisplayPostUserButtons post={post} />
       </div>
     </div>
