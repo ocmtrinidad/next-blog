@@ -1,3 +1,4 @@
+import CommentsSection from "@/app/(components)/CommentsSection";
 import PostHeader from "@/app/(components)/PostHeader";
 import { getPost, Post } from "@/models/postModels";
 import Image from "next/image";
@@ -27,6 +28,7 @@ export default async function PostId({
         className="self-center"
       />
       <p>{post.content}</p>
+      <CommentsSection comments={post.Comment} />
     </div>
   );
 }
