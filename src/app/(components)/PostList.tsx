@@ -15,10 +15,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
         <div key={post.id} className="border flex mb-4 rounded">
           <div className="flex flex-col p-2 flex-1 h-[250px]">
             <PostHeader post={post} />
-            <Link
-              href={`/post/${post.id}`}
-              className="overflow-hidden mt-2 flex-1 mb-2"
-            >
+            <Link href={`/post/${post.id}`} className="overflow-hidden flex-1">
               <p>{post.content}</p>
             </Link>
             <div className="flex justify-between">
