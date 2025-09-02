@@ -55,7 +55,7 @@ export default function DisplayLikeButton({
   return (
     <form
       onSubmit={handleLikeToggle}
-      className="cursor-pointer flex items-center gap-2 sm:border-l pl-2"
+      className="cursor-pointer flex items-center gap-2"
     >
       {!liked ? (
         <BlueButton>
