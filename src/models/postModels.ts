@@ -2,6 +2,7 @@ import prisma from "../../lib/prisma";
 import { v2 as cloudinary } from "cloudinary";
 import { Like } from "./likeModels";
 import { Comment } from "./commentModels";
+import { UserType } from "./userModels";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -14,7 +15,7 @@ export type Post = {
   title: string;
   content: string;
   image: string;
-  author: { id: string; name: string; image: string | null };
+  author: UserType;
   createdAt: Date;
   category: { id: string; name: string };
   Like: Like[];
@@ -79,16 +80,14 @@ export const getPosts = async (query?: string) => {
         },
       },
       include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-          },
-        },
+        author: true,
         category: true,
         Like: true,
-        Comment: true,
+        Comment: {
+          include: {
+            author: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -97,16 +96,14 @@ export const getPosts = async (query?: string) => {
   }
   return await prisma.post.findMany({
     include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
-      },
+      author: true,
       category: true,
       Like: true,
-      Comment: true,
+      Comment: {
+        include: {
+          author: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
@@ -118,16 +115,14 @@ export const getPost = async (id: string) => {
   return await prisma.post.findUnique({
     where: { id },
     include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
-      },
+      author: true,
       category: true,
       Like: true,
-      Comment: true,
+      Comment: {
+        include: {
+          author: true,
+        },
+      },
     },
   });
 };
@@ -142,16 +137,14 @@ export const getPostsByAuthor = async (id: string, query?: string) => {
         ],
       },
       include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-          },
-        },
+        author: true,
         category: true,
         Like: true,
-        Comment: true,
+        Comment: {
+          include: {
+            author: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -161,16 +154,14 @@ export const getPostsByAuthor = async (id: string, query?: string) => {
   return await prisma.post.findMany({
     where: { authorId: id },
     include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
-      },
+      author: true,
       category: true,
       Like: true,
-      Comment: true,
+      Comment: {
+        include: {
+          author: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
@@ -186,32 +177,28 @@ export const getPostsByCategory = async (category: string, query?: string) => {
         title: { contains: query, mode: "insensitive" },
       },
       include: {
-        author: {
-          select: {
-            id: true,
-            name: true,
-            image: true,
-          },
-        },
+        author: true,
         category: true,
         Like: true,
-        Comment: true,
+        Comment: {
+          include: {
+            author: true,
+          },
+        },
       },
     });
   }
   return await prisma.post.findMany({
     where: { category: { name: category } },
     include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
-      },
+      author: true,
       category: true,
       Like: true,
-      Comment: true,
+      Comment: {
+        include: {
+          author: true,
+        },
+      },
     },
   });
 };
