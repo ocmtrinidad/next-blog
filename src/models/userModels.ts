@@ -12,9 +12,9 @@ export type UserType = {
   id: string;
   name: string;
   email: string;
-  image?: string;
+  image?: string | null;
   role?: string;
-  bio?: string;
+  bio?: string | null;
 };
 
 export const addUser = async (
