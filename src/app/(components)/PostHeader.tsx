@@ -2,8 +2,13 @@ import { Post } from "@/models/postModels";
 import Link from "next/link";
 import Image from "next/image";
 import DisplayPostUserButtons from "./DisplayPostUserButtons";
+import DisplayLikeButton from "./DisplayLikeButton";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
-export default function PostHeader({ post }: { post: Post }) {
+export default async function PostHeader({ post }: { post: Post }) {
+  const session = await getServerSession(options);
+
   return (
     <div className="flex flex-col border-b">
       <Link href={`/post/${post.id}`} className="text-2xl font-bold max-w-fit">
@@ -27,9 +32,7 @@ export default function PostHeader({ post }: { post: Post }) {
       </Link>
       <div className="flex items-center gap-2 mb-2 flex-col md:flex-row">
         <p>{post.createdAt.toDateString()}</p>
-        <p className="border-l pl-2">
-          {post.Like.length} {post.Like.length === 1 ? "Like" : "Likes"}
-        </p>
+        <DisplayLikeButton user={session?.user} post={post} />
         <DisplayPostUserButtons post={post} />
       </div>
     </div>
