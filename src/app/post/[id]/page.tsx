@@ -1,6 +1,8 @@
 import CommentsSection from "@/app/(components)/CommentsSection";
 import PostHeader from "@/app/(components)/PostHeader";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getPost, Post } from "@/models/postModels";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -11,6 +13,7 @@ export default async function PostId({
 }) {
   const { id } = await params;
   const post: Post | null = await getPost(id);
+  const session = await getServerSession(options);
 
   if (!post) {
     redirect("/");
@@ -28,7 +31,7 @@ export default async function PostId({
         className="self-center"
       />
       <p>{post.content}</p>
-      <CommentsSection comments={post.Comment} />
+      <CommentsSection post={post} user={session.user} />
     </div>
   );
 }
