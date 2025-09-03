@@ -22,7 +22,7 @@ export default async function PostHeader({ post }: { post: Post }) {
         <p>{post.author.name}</p>
       </Link>
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
-        <p>{post.createdAt.toDateString()}</p>
+        <p>{new Date(post.createdAt).toDateString()}</p>
         <div className="flex items-center gap-2">
           <DisplayLikeButton user={session?.user} post={post} />
           <DisplayPostUserButtons post={post} />
