@@ -1,4 +1,8 @@
-import { addComment, getCommentsByPostId } from "@/models/commentModels";
+import {
+  addComment,
+  deleteComment,
+  getCommentsByPostId,
+} from "@/models/commentModels";
 
 export async function POST(
   request: Request,
@@ -20,6 +24,29 @@ export async function POST(
 
   try {
     await addComment(content, authorId, id);
+    const comments = await getCommentsByPostId(id);
+    return new Response(JSON.stringify(comments), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const body = await request.json();
+  const { commentId } = body;
+
+  try {
+    await deleteComment(commentId);
     const comments = await getCommentsByPostId(id);
     return new Response(JSON.stringify(comments), {
       status: 201,
