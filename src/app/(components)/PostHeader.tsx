@@ -1,10 +1,10 @@
 import { Post } from "@/models/postModels";
 import Link from "next/link";
-import Image from "next/image";
 import DisplayPostUserButtons from "./DisplayPostUserButtons";
 import DisplayLikeButton from "./DisplayLikeButton";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
+import SmallProfilePicture from "./SmallProfilePicture";
 
 export default async function PostHeader({ post }: { post: Post }) {
   const session = await getServerSession(options);
@@ -18,16 +18,7 @@ export default async function PostHeader({ post }: { post: Post }) {
         href={`/user/${post.author.id}`}
         className="max-w-fit flex items-center gap-2"
       >
-        {post.author.image && (
-          <Image
-            src={post.author.image}
-            width={50}
-            height={50}
-            alt={post.author.name}
-            priority={true}
-            className="rounded-full"
-          />
-        )}
+        <SmallProfilePicture user={post.author} />
         <p>{post.author.name}</p>
       </Link>
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">

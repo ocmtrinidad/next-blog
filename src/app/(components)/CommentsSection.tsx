@@ -6,8 +6,8 @@ import { useState } from "react";
 import { UserType } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { Post } from "@/models/postModels";
-import Image from "next/image";
 import Link from "next/link";
+import SmallProfilePicture from "./SmallProfilePicture";
 
 export default function CommentsSection({
   post,
@@ -68,16 +68,7 @@ export default function CommentsSection({
               href={`/user/${comment.author.id}`}
               className="flex items-center gap-2 cursor-pointer max-w-fit"
             >
-              {comment.author.image && (
-                <Image
-                  src={comment.author.image}
-                  priority={true}
-                  width={50}
-                  height={50}
-                  alt={comment.author.name}
-                  className="rounded-full self-center"
-                ></Image>
-              )}
+              <SmallProfilePicture user={comment.author} />
               <p>{comment.author.name}</p>
             </Link>
             <p>{comment.content}</p>
