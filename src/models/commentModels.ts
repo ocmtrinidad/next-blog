@@ -9,6 +9,14 @@ export type Comment = {
   createdAt: Date;
 };
 
+export const getCommentsByPostId = async (postId: string) => {
+  return await prisma.comment.findMany({
+    where: { postId },
+    include: { author: true },
+    orderBy: { createdAt: "desc" },
+  });
+};
+
 export const addComment = async (
   content: string,
   authorId: string,
