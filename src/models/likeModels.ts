@@ -23,3 +23,11 @@ export const removeLike = async (userId: string, postId: string) => {
     },
   });
 };
+
+export const deleteAllLikesByPostId = async (postId: string) => {
+  return await prisma.like.deleteMany({
+    where: {
+      postId,
+    },
+  });
+};
