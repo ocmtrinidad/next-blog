@@ -1,5 +1,7 @@
 "use server";
 
+import { deleteAllCommentsByPostId } from "@/models/commentModels";
+import { deleteAllLikesByPostId } from "@/models/likeModels";
 import { addPost, deletePost, Post, updatePost } from "@/models/postModels";
 import { getUserById } from "@/models/userModels";
 import bcrypt from "bcryptjs";
@@ -86,7 +88,11 @@ export const removePost = async (
       };
     }
 
-    await deletePost(post);
+    const [deletedLikes, deletedComments, deletedPost] = await Promise.all([
+      deleteAllLikesByPostId(post.id),
+      deleteAllCommentsByPostId(post.id),
+      deletePost(post),
+    ]);
     revalidatePath("/");
   } catch (error) {
     console.log("Error deleting post:", error);
