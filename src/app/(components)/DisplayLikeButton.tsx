@@ -5,6 +5,7 @@ import { Post } from "@/models/postModels";
 import { UserType } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { likePost, unlikePost } from "../controllers/likesControllers";
 
 export default function DisplayLikeButton({
   user,
@@ -25,29 +26,17 @@ export default function DisplayLikeButton({
       redirect("/api/auth/signin?callbackUrl=/");
     }
 
-    if (liked) {
-      const response = await fetch(`/api/likes/${post.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: user.id }),
-      });
-      if (response.ok) {
-        setLiked(false);
-        setLikeCount((prev) => prev - 1);
-      }
-    } else {
-      const response = await fetch(`/api/likes/${post.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: user.id }),
-      });
-      if (response.ok) {
+    if (!liked) {
+      const newLike = await likePost(user.id, post.id);
+      if (newLike) {
         setLiked(true);
         setLikeCount((prev) => prev + 1);
+      }
+    } else {
+      const oldLike = await unlikePost(user.id, post.id);
+      if (oldLike) {
+        setLiked(false);
+        setLikeCount((prev) => prev - 1);
       }
     }
   };
