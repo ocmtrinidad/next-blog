@@ -31,7 +31,7 @@ export default async function PostId({
         className="self-center"
       />
       <p>{post.content}</p>
-      <CommentsSection post={post} user={session.user} />
+      <CommentsSection post={post} user={session?.user} />
     </div>
   );
 }
