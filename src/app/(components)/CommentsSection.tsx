@@ -8,6 +8,11 @@ import { redirect } from "next/navigation";
 import { Post } from "@/models/postModels";
 import Link from "next/link";
 import SmallProfilePicture from "./SmallProfilePicture";
+import {
+  getAllCommentsByPost,
+  removeComment,
+  submitComment,
+} from "../controllers/commentsControllers";
 
 export default function CommentsSection({
   post,
@@ -20,7 +25,7 @@ export default function CommentsSection({
 
   const commentRef = useRef<HTMLInputElement>(null);
 
-  const submitComment = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!user) {
@@ -28,21 +33,10 @@ export default function CommentsSection({
     }
 
     try {
-      const response = await fetch(`/api/posts/${post.id}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          authorId: user.id,
-          content: e.currentTarget.comment.value,
-        }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setComments(data);
-        commentRef.current!.value = "";
-      }
+      await submitComment(post.id, user.id, e.currentTarget.comment.value);
+      const updatedComments = await getAllCommentsByPost(post.id);
+      setComments(updatedComments);
+      commentRef.current!.value = "";
     } catch (error) {
       console.log(error);
     }
@@ -50,19 +44,9 @@ export default function CommentsSection({
 
   const deleteComment = async (id: string) => {
     try {
-      const response = await fetch(`/api/posts/${post.id}/comments`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          commentId: id,
-        }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setComments(data);
-      }
+      await removeComment(id);
+      const updatedComments = await getAllCommentsByPost(post.id);
+      setComments(updatedComments);
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +61,7 @@ export default function CommentsSection({
       <h1 className="font-bold text-xl">
         {comments.length} {comments.length === 1 ? "Comment" : "Comments"}
       </h1>
-      <form onSubmit={submitComment} className="flex">
+      <form onSubmit={handleSubmitComment} className="flex">
         <input
           type="text"
           name="comment"
