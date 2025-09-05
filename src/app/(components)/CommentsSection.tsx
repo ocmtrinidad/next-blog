@@ -2,7 +2,7 @@
 
 import { Comment } from "@/models/commentModels";
 import BlueButton from "./BlueButton";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { UserType } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { Post } from "@/models/postModels";
@@ -17,6 +17,8 @@ export default function CommentsSection({
   user: UserType | null;
 }) {
   const [comments, setComments] = useState<Comment[]>(post.Comment);
+
+  const commentRef = useRef<HTMLInputElement>(null);
 
   const submitComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ export default function CommentsSection({
       if (response.ok) {
         const data = await response.json();
         setComments(data);
+        commentRef.current!.value = "";
       }
     } catch (error) {
       console.log(error);
@@ -80,6 +83,7 @@ export default function CommentsSection({
           name="comment"
           placeholder="Add A Comment"
           className="border border-r-0 flex-1 rounded rounded-r-none rounded-br-none p-2"
+          ref={commentRef}
         />
         <div className="flex">
           <BlueButton>Submit</BlueButton>
@@ -88,13 +92,21 @@ export default function CommentsSection({
       <div>
         {comments.map((comment) => (
           <div key={comment.id}>
-            <Link
-              href={`/user/${comment.author.id}`}
-              className="cursor-pointer grid grid-cols-[max-content_1fr]"
-            >
-              <SmallProfilePicture user={comment.author} />
+            <div className="grid grid-cols-[max-content_1fr]">
+              <Link
+                href={`/user/${comment.author.id}`}
+                className="cursor-pointer"
+              >
+                <SmallProfilePicture user={comment.author} />
+              </Link>
+
               <div className="flex gap-2 items-center ml-2">
-                <p>{comment.author.name}</p>
+                <Link
+                  href={`/user/${comment.author.id}`}
+                  className="cursor-pointer"
+                >
+                  <p>{comment.author.name}</p>
+                </Link>
                 <p>{new Date(comment.createdAt).toDateString()}</p>
                 {user && user.id === comment.author.id && (
                   <button
@@ -119,9 +131,8 @@ export default function CommentsSection({
                   </button>
                 )}
               </div>
-
               <p className="col-start-2 ml-2">{comment.content}</p>
-            </Link>
+            </div>
           </div>
         ))}
       </div>
