@@ -86,12 +86,7 @@ export const removePost = async (
         errors: { password: "Incorrect password" },
       };
     }
-
-    const [deletedLikes, deletedComments, deletedPost] = await Promise.all([
-      deleteAllLikesByPostId(post.id),
-      deleteAllCommentsByPostId(post.id),
-      deletePost(post),
-    ]);
+    await deletePost(post);
     revalidatePath("/");
   } catch (error) {
     console.log("Error deleting post:", error);
