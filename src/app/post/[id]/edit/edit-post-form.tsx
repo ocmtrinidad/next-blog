@@ -6,90 +6,43 @@ import BlueButton from "@/app/(components)/BlueButton";
 import { Post } from "@/models/postModels";
 import { Category } from "@/models/categoryModels";
 import Image from "next/image";
-import PasswordModal from "@/app/(components)/PasswordModal";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export default function EditPostForm({
   post,
   categories,
-  userId,
 }: {
   post: Post;
   categories: Category[];
-  userId: string;
 }) {
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [formData, setFormData] = useState<FormData | null>(null);
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formState, setFormState] = useState<PostFormState>({
     errors: {},
     title: "",
     content: "",
     category: "",
-    password: "",
   });
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormData(new FormData(e.currentTarget));
-    setShowPasswordModal(true);
-    setPassword("");
-    setPasswordError("");
-  };
-
-  const handlePasswordConfirm = async () => {
-    if (!password.trim()) {
-      setPasswordError("Password is required");
-      return;
-    }
-
-    if (formData) {
-      setIsSubmitting(true);
-      if (!formData.has("password")) {
-        formData.append("password", password);
-      } else {
-        formData.set("password", password);
-      }
-
-      try {
-        const result = await editPost(
-          userId,
-          post.id,
-          undefined,
-          formData,
-          password
-        );
+    try {
+      if (formData) {
+        setIsSubmitting(true);
+        const result = await editPost(post.id, undefined, formData);
         if (result && result.errors && Object.keys(result.errors).length > 0) {
           setFormState(result);
-          if (result.errors.password) {
-            setPasswordError(result.errors.password);
-          } else {
-            setShowPasswordModal(false);
-            setPassword("");
-          }
-        } else {
-          setShowPasswordModal(false);
-          setPassword("");
         }
-      } catch (error) {
-        if (isRedirectError(error)) {
-          return;
-        }
-        console.log("Error submitting form:", error);
-        setPasswordError("An error occurred. Please try again.");
-      } finally {
-        setIsSubmitting(false);
       }
+    } catch (error) {
+      if (isRedirectError(error)) {
+        return;
+      }
+      console.log("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
     }
-  };
-
-  const handleModalClose = () => {
-    setShowPasswordModal(false);
-    setPassword("");
-    setPasswordError("");
-    setFormData(null);
   };
 
   return (
@@ -162,17 +115,6 @@ export default function EditPostForm({
         </button>
       ) : (
         <BlueButton>Publish</BlueButton>
-      )}
-
-      {showPasswordModal && (
-        <PasswordModal
-          password={password}
-          setPassword={setPassword}
-          passwordError={passwordError}
-          isSubmitting={isSubmitting}
-          handlePasswordConfirm={handlePasswordConfirm}
-          handleModalClose={handleModalClose}
-        />
       )}
     </form>
   );
