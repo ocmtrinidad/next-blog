@@ -21,7 +21,6 @@ export type PostFormState = {
   title?: string;
   content?: string;
   category?: string;
-  password?: string;
 };
 
 export const createPost = async (
@@ -103,11 +102,9 @@ export const removePost = async (
 };
 
 export const editPost = async (
-  userId: string,
   postId: string,
   prevState: PostFormState | undefined,
-  formData: FormData,
-  password: string
+  formData: FormData
 ): Promise<PostFormState | undefined> => {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
@@ -131,19 +128,6 @@ export const editPost = async (
   }
 
   try {
-    const currentUser = await getUserById(userId);
-    if (!currentUser) {
-      return {
-        errors: { password: "User not found" },
-      };
-    }
-
-    const passwordMatch = await bcrypt.compare(password, currentUser.password);
-    if (!passwordMatch) {
-      return {
-        errors: { password: "Incorrect password" },
-      };
-    }
     await updatePost(postId, title, content, category);
     revalidatePath("/");
   } catch (error) {
