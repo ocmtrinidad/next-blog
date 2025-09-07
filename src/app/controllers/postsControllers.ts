@@ -1,7 +1,5 @@
 "use server";
 
-import { deleteAllCommentsByPostId } from "@/models/commentModels";
-import { deleteAllLikesByPostId } from "@/models/likeModels";
 import { addPost, deletePost, Post, updatePost } from "@/models/postModels";
 import { getUserById } from "@/models/userModels";
 import bcrypt from "bcryptjs";
