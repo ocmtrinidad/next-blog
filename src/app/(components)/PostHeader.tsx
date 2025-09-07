@@ -6,7 +6,13 @@ import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import SmallProfilePicture from "./SmallProfilePicture";
 
-export default async function PostHeader({ post }: { post: Post }) {
+export default async function PostHeader({
+  post,
+  route,
+}: {
+  post: Post;
+  route: string;
+}) {
   const session = await getServerSession(options);
 
   return (
@@ -25,7 +31,7 @@ export default async function PostHeader({ post }: { post: Post }) {
         <p>{new Date(post.createdAt).toDateString()}</p>
         <div className="flex items-center gap-2">
           <DisplayLikeButton user={session?.user} post={post} />
-          <DisplayPostUserButtons post={post} />
+          <DisplayPostUserButtons post={post} route={route} />
         </div>
       </div>
     </div>

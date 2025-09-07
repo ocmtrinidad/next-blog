@@ -9,9 +9,11 @@ import { Post } from "@/models/postModels";
 export default function RedButton({
   post,
   userId,
+  route,
 }: {
   post: Post;
   userId: string;
+  route: string;
 }) {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
@@ -32,7 +34,7 @@ export default function RedButton({
     }
     setIsSubmitting(true);
     try {
-      const result = await removePost(post, userId, password);
+      const result = await removePost(post, userId, password, route);
       if (result && result.errors && Object.keys(result.errors).length > 0) {
         if (result.errors.password) {
           setPasswordError(result.errors.password);

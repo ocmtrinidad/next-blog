@@ -68,7 +68,8 @@ export const createPost = async (
 export const removePost = async (
   post: Post,
   userId: string,
-  password: string
+  password: string,
+  route: string
 ) => {
   try {
     const currentUser = await getUserById(userId);
@@ -85,13 +86,13 @@ export const removePost = async (
       };
     }
     await deletePost(post);
-    revalidatePath("/");
+    revalidatePath(route);
   } catch (error) {
     console.log("Error deleting post:", error);
     return;
   }
 
-  redirect("/");
+  redirect(route);
 };
 
 export const editPost = async (

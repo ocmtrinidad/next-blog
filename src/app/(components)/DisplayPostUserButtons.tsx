@@ -5,7 +5,13 @@ import Link from "next/link";
 import BlueButton from "./BlueButton";
 import RedButton from "./RedButton";
 
-export default async function DisplayPostUserButtons({ post }: { post: Post }) {
+export default async function DisplayPostUserButtons({
+  post,
+  route,
+}: {
+  post: Post;
+  route: string;
+}) {
   const session = await getServerSession(options);
 
   return (
@@ -26,7 +32,7 @@ export default async function DisplayPostUserButtons({ post }: { post: Post }) {
               </svg>
             </BlueButton>
           </Link>
-          <RedButton post={post} userId={session.user.id} />
+          <RedButton post={post} userId={session.user.id} route={route} />
         </div>
       )}
     </>

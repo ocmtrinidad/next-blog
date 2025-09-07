@@ -38,7 +38,7 @@ export default async function UserPage({
         route={`/user/${user?.id}`}
         placeholder={`Search ${user?.name}'s Posts`}
       />
-      <PostList posts={posts} />
+      <PostList posts={posts} route={`/user/${user?.id} `} />
     </div>
   );
 }

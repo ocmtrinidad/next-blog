@@ -4,7 +4,13 @@ import PostHeader from "./PostHeader";
 import Link from "next/link";
 import BlueButton from "./BlueButton";
 
-export default function PostList({ posts }: { posts: Post[] }) {
+export default function PostList({
+  posts,
+  route,
+}: {
+  posts: Post[];
+  route: string;
+}) {
   if (!posts.length) {
     return <p className="text-center">No posts available</p>;
   }
@@ -26,7 +32,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
             />
           </Link>
           <div className="flex flex-col p-2 flex-1 h-[250px]">
-            <PostHeader post={post} />
+            <PostHeader post={post} route={route} />
             <Link href={`/post/${post.id}`} className="overflow-hidden flex-1">
               <p>{post.content}</p>
             </Link>
