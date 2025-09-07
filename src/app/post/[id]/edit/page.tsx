@@ -26,11 +26,5 @@ export default async function EditPostPage({
     redirect("/");
   }
 
-  return (
-    <EditPostForm
-      post={post}
-      categories={categories}
-      userId={session.user.id}
-    />
-  );
+  return <EditPostForm post={post} categories={categories} />;
 }
