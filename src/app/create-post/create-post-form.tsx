@@ -16,7 +16,6 @@ export default function CreatePostForm({
 }) {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // Remove password from PostFormState
   const [formState, setFormState] = useState<PostFormState>({
     errors: {},
     title: "",
