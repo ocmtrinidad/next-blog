@@ -42,10 +42,7 @@ export default function DisplayLikeButton({
   };
 
   return (
-    <form
-      onSubmit={handleLikeToggle}
-      className="cursor-pointer flex items-center gap-2"
-    >
+    <form onSubmit={handleLikeToggle} className="flex items-center gap-2">
       {!liked ? (
         <BlueButton>
           <svg
@@ -60,7 +57,7 @@ export default function DisplayLikeButton({
           </svg>
         </BlueButton>
       ) : (
-        <button className="bg-gray-500 px-2 py-1 rounded cursor-pointer hover:bg-gray-700 h-full">
+        <button className="cursor-pointer bg-gray-500 px-2 py-1 rounded hover:bg-gray-700 h-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
