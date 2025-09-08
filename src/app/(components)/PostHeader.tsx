@@ -5,6 +5,7 @@ import DisplayLikeButton from "./DisplayLikeButton";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import SmallProfilePicture from "./SmallProfilePicture";
+import DisplayCommentCounter from "./DisplayCommentCounter";
 
 export default async function PostHeader({
   post,
@@ -31,6 +32,7 @@ export default async function PostHeader({
         <p>{new Date(post.createdAt).toDateString()}</p>
         <div className="flex items-center gap-2">
           <DisplayLikeButton user={session?.user} post={post} />
+          <DisplayCommentCounter post={post} />
           <DisplayPostUserButtons post={post} route={route} />
         </div>
       </div>
