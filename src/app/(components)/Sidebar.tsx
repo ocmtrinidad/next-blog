@@ -45,6 +45,11 @@ export default function Sidebar({ userId }: { userId: string }) {
             url={"/profile"}
             text={"Profile"}
           />
+          <SidebarLinks
+            setShowSidebar={setShowSidebar}
+            url={"/liked-posts"}
+            text={"Liked Posts"}
+          />
           <Link href={"/api/auth/signout?callbackUrl=/"} className="px-4">
             <BlueButton>Logout</BlueButton>
           </Link>
