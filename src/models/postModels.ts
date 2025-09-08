@@ -246,4 +246,29 @@ export const updatePost = async (
   });
 };
 
+export const getLikedPosts = async (userId: string) => {
+  return await prisma.post.findMany({
+    where: {
+      Like: {
+        some: {
+          userId: userId,
+        },
+      },
+    },
+    include: {
+      author: true,
+      category: true,
+      Like: true,
+      Comment: {
+        include: {
+          author: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+};
+
 export default prisma;
