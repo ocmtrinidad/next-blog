@@ -246,7 +246,32 @@ export const updatePost = async (
   });
 };
 
-export const getLikedPosts = async (userId: string) => {
+export const getLikedPosts = async (userId: string, query?: string) => {
+  if (query) {
+    return await prisma.post.findMany({
+      where: {
+        Like: {
+          some: {
+            userId: userId,
+          },
+        },
+        title: { contains: query, mode: "insensitive" },
+      },
+      include: {
+        author: true,
+        category: true,
+        Like: true,
+        Comment: {
+          include: {
+            author: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
   return await prisma.post.findMany({
     where: {
       Like: {
