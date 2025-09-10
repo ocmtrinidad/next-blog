@@ -19,6 +19,7 @@ export default async function LikedPostsPage() {
 
   return (
     <div>
+      <h2 className="text-xl font-bold mb-4">Liked Posts</h2>
       <PostList posts={likedPosts} route={"/liked-posts"} />
     </div>
   );
