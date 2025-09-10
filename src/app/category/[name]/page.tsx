@@ -28,7 +28,7 @@ export default async function CategoryPosts({
       {!posts || !posts.length ? (
         <p className="text-center">No posts found in this category.</p>
       ) : (
-        <PostList posts={posts} />
+        <PostList posts={posts} route={`/category/${name}`} />
       )}
     </>
   );
