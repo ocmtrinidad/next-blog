@@ -20,7 +20,7 @@ export default async function PostId({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <PostHeader post={post} route={`/user/${id}`} />
       <Image
         src={post.image}
@@ -30,7 +30,7 @@ export default async function PostId({
         priority={true}
         className="self-center"
       />
-      <p>{post.content}</p>
+      <p className="border-y py-2">{post.content}</p>
       <CommentsSection post={post} user={session?.user} />
     </div>
   );
