@@ -32,7 +32,7 @@ export default function Sidebar({ userId }: { userId: string }) {
           </button>
           <SidebarLinks
             setShowSidebar={setShowSidebar}
-            url={"/create-post"}
+            url={"/create_post"}
             text={"Create Post"}
           />
           <SidebarLinks
@@ -42,7 +42,7 @@ export default function Sidebar({ userId }: { userId: string }) {
           />
           <SidebarLinks
             setShowSidebar={setShowSidebar}
-            url={"/liked-posts"}
+            url={"/liked_posts"}
             text={"Liked Posts"}
           />
           <SidebarLinks
