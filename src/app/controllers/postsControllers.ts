@@ -123,7 +123,7 @@ export const editPost = async (
 
   try {
     await updatePost(postId, title, content, category);
-    revalidatePath("/");
+    revalidatePath(`/post/${postId}`);
   } catch (error) {
     console.log("Error updating post:", error);
     return {
@@ -132,5 +132,5 @@ export const editPost = async (
       content,
     };
   }
-  redirect("/");
+  redirect(`/post/${postId}`);
 };
