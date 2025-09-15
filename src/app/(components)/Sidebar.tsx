@@ -18,7 +18,7 @@ export default function Sidebar({ userId }: { userId: string }) {
       )}
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-fit z-50 bg-[#333333] border-r transition-transform duration-300 ${
+        className={`flex flex-col justify-between fixed top-0 left-0 h-full w-fit z-50 bg-[#333333] border-r transition-transform duration-300 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -50,10 +50,13 @@ export default function Sidebar({ userId }: { userId: string }) {
             url={"/profile"}
             text={"Profile"}
           />
-          <Link href={"/api/auth/signout?callbackUrl=/"} className="px-4">
-            <BlueButton>Logout</BlueButton>
-          </Link>
         </div>
+        <Link
+          href={"/api/auth/signout?callbackUrl=/"}
+          className="px-4 flex mb-2"
+        >
+          <BlueButton>Logout</BlueButton>
+        </Link>
       </div>
 
       <div onClick={() => setShowSidebar(true)} className="flex">

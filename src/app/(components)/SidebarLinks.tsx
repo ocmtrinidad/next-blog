@@ -12,7 +12,7 @@ export default function SidebarLinks({
 }) {
   return (
     <div onClick={() => setShowSidebar(false)}>
-      <Link href={url} className="px-4">
+      <Link href={url} className="px-4 flex">
         <BlueButton>{text}</BlueButton>
       </Link>
     </div>
