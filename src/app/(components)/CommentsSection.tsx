@@ -6,8 +6,6 @@ import { useRef, useState } from "react";
 import { UserType } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { Post } from "@/models/postModels";
-import Link from "next/link";
-import SmallProfilePicture from "./SmallProfilePicture";
 import {
   getAllCommentsByPost,
   removeComment,
