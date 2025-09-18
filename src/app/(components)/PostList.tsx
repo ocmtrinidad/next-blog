@@ -31,7 +31,7 @@ export default function PostList({
               priority={true}
             />
           </Link>
-          <div className="flex flex-col p-2 flex-1 h-[250px]">
+          <div className="flex flex-col p-2 flex-1 h-[250px] border-t sm:border-t-0 sm:border-l">
             <PostHeader post={post} route={route} />
             <Link href={`/post/${post.id}`} className="overflow-hidden flex-1">
               <p>{post.content}</p>
