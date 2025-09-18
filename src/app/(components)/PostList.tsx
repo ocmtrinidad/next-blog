@@ -2,7 +2,7 @@ import { Post } from "@/models/postModels";
 import Image from "next/image";
 import PostHeader from "./PostHeader";
 import Link from "next/link";
-import BlueButton from "./BlueButton";
+import CategoryButton from "./CategoryButton";
 
 export default function PostList({
   posts,
@@ -36,14 +36,7 @@ export default function PostList({
             <Link href={`/post/${post.id}`} className="overflow-hidden flex-1">
               <p>{post.content}</p>
             </Link>
-            <div className="flex justify-between">
-              <Link
-                href={`/category/${post.category.name}`}
-                className="max-w-fit"
-              >
-                <BlueButton>{post.category.name}</BlueButton>
-              </Link>
-            </div>
+            <CategoryButton category={post.category.name} />
           </div>
         </div>
       ))}
