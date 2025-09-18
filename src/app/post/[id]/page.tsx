@@ -1,9 +1,11 @@
+import BlueButton from "@/app/(components)/BlueButton";
 import CommentsSection from "@/app/(components)/CommentsSection";
 import PostHeader from "@/app/(components)/PostHeader";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getPost, Post } from "@/models/postModels";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function PostId({
@@ -31,6 +33,9 @@ export default async function PostId({
         className="self-center"
       />
       <p className="border-y py-2">{post.content}</p>
+      <Link href={`/category/${post.category.name}`} className="max-w-fit">
+        <BlueButton>{post.category.name}</BlueButton>
+      </Link>
       <CommentsSection post={post} user={session?.user} />
     </div>
   );
