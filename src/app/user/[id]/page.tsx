@@ -21,7 +21,7 @@ export default async function UserPage({
   return (
     <div className="flex flex-col gap-4">
       <div className="border-b">
-        <h1 className="text-2xl font-bold">{user?.name}'s Profile Page</h1>
+        <h1 className="text-2xl font-bold">{user?.name}&apos;s Profile Page</h1>
         {user && user.image && (
           <Image
             src={user.image}
