@@ -56,7 +56,7 @@ export default function CommentsSection({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 border-t">
       <h1 className="font-bold text-xl">
         {comments.length} {comments.length === 1 ? "Comment" : "Comments"}
       </h1>
