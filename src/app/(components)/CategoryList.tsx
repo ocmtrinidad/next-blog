@@ -30,8 +30,8 @@ export default function CategoryList({
         <button
           className={
             !selectedCategory
-              ? "bg-blue-700 px-4 py-2 rounded cursor-pointer"
-              : "bg-blue-500 px-4 py-2 rounded cursor-pointer hover:bg-blue-700"
+              ? "bg-blue-700 px-2 py-1 rounded cursor-pointer"
+              : "bg-blue-500 px-2 py-1 rounded cursor-pointer hover:bg-blue-700"
           }
           onClick={() => handleCategoryClick(null)}
         >
@@ -43,8 +43,8 @@ export default function CategoryList({
           <button
             className={
               selectedCategory === category.name
-                ? "bg-blue-700 px-4 py-2 rounded cursor-pointer"
-                : "bg-blue-500 px-4 py-2 rounded cursor-pointer hover:bg-blue-700"
+                ? "bg-blue-700 px-2 py-1 rounded cursor-pointer"
+                : "bg-blue-500 px-2 py-1 rounded cursor-pointer hover:bg-blue-700"
             }
             onClick={() => handleCategoryClick(category.name)}
           >
