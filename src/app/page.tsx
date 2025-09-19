@@ -10,8 +10,10 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const { query } = await searchParams;
-  const posts: Post[] = await getPosts(query);
-  const categories: Category[] = await getCategories();
+  const [posts, categories]: [Post[], Category[]] = await Promise.all([
+    await getPosts(query),
+    await getCategories(),
+  ]);
 
   return (
     <>
