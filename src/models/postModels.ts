@@ -50,7 +50,6 @@ export const addPost = async (
             return;
           }
           try {
-            console.log("Cloudinary upload result:", result.public_id);
             const post = await prisma.post.create({
               data: {
                 authorId: id,
