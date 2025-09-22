@@ -20,7 +20,7 @@ export default function DisplayComment({
 
       <div className="flex gap-2 items-center ml-2">
         <Link href={`/user/${comment.author.id}`} className="cursor-pointer">
-          <p>{comment.author.name}</p>
+          {comment.author.name}
         </Link>
         <p>{new Date(comment.createdAt).toDateString()}</p>
         {user && user.id === comment.author.id && (
