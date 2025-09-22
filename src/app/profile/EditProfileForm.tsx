@@ -148,7 +148,7 @@ export default function EditProfileForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`px-4 py-2 rounded text-white ${
+          className={`px-2 py-1 rounded text-white ${
             isSubmitting
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-blue-500 hover:bg-blue-600 cursor-pointer"
