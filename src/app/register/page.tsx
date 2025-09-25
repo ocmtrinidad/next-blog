@@ -76,11 +76,11 @@ export default function RegisterPage() {
         </div>
 
         {isPending ? (
-          <button className="bg-gray-500 px-4 py-2 rounded cursor-pointer">
+          <button className="bg-gray-500 px-2 py-1 rounded cursor-pointer">
             Submitting...
           </button>
         ) : (
-          <button className="bg-blue-500 px-4 py-2 rounded cursor-pointer">
+          <button className="bg-blue-500 px-2 py-1 rounded cursor-pointer">
             Register
           </button>
         )}
