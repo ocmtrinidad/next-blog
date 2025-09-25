@@ -1,6 +1,11 @@
 "use server";
 
-import { addUser, updateUser, getUserById } from "@/models/userModels";
+import {
+  addUser,
+  updateUser,
+  getUserById,
+  deleteUser,
+} from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
@@ -103,6 +108,41 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
       errors: { name: "Failed to update profile. Please try again." },
       name,
       email,
+    };
+  }
+};
+
+export const removeUser = async (id: string, formData: FormData) => {
+  const password = formData.get("password") as string;
+  const errors: UserErrors = {};
+  if (!password) {
+    errors.password = "Password is required for verification";
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { errors };
+  }
+
+  try {
+    const currentUser = await getUserById(id);
+    if (!currentUser) {
+      return {
+        errors: { password: "User not found" },
+      };
+    }
+
+    const passwordMatch = await bcrypt.compare(password, currentUser.password);
+    if (!passwordMatch) {
+      return {
+        errors: { password: "Incorrect password" },
+      };
+    }
+
+    await deleteUser(id);
+  } catch (error) {
+    console.log("Error updating user profile:", error);
+    return {
+      errors: { name: "Failed to update profile. Please try again." },
     };
   }
 };
