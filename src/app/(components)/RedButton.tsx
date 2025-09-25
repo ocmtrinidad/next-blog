@@ -38,6 +38,8 @@ export default function RedButton({
       if (result && result.errors && Object.keys(result.errors).length > 0) {
         if (result.errors.password) {
           setPasswordError(result.errors.password);
+          setIsSubmitting(false);
+          return;
         }
       }
       setShowPasswordModal(false);

@@ -59,11 +59,8 @@ export default function EditProfileForm({
           setFormState(result);
           if (result.errors.password) {
             setPasswordError(result.errors.password);
-          } else {
-            setShowPasswordModal(false);
-            setPassword("");
+            return;
           }
-        } else {
           setShowPasswordModal(false);
           setPassword("");
         }
