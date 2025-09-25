@@ -3,6 +3,8 @@
 import { UserType } from "@/models/userModels";
 import PasswordModal from "../(components)/PasswordModal";
 import { useState } from "react";
+import { removeUser } from "../controllers/usersControllers";
+import { signOut } from "next-auth/react";
 
 export default function DeleteAccount({ user }: { user: UserType }) {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -34,18 +36,15 @@ export default function DeleteAccount({ user }: { user: UserType }) {
       }
 
       try {
-        // const result = await updateUserProfile(user.id, formData);
-        // if (result && result.errors && Object.keys(result.errors).length > 0) {
-        //   if (result.errors.password) {
-        //     setPasswordError(result.errors.password);
-        //   } else {
-        //     setShowPasswordModal(false);
-        //     setPassword("");
-        //   }
-        // } else {
-        //   setShowPasswordModal(false);
-        //   setPassword("");
-        // }
+        const result = await removeUser(user.id, formData);
+        if (result && result.errors && Object.keys(result.errors).length > 0) {
+          if (result.errors.password) {
+            setPasswordError(result.errors.password);
+            setIsSubmitting(false);
+            return;
+          }
+        }
+        await signOut({ callbackUrl: "/" });
       } catch (error) {
         console.log("Error submitting form:", error);
         setPasswordError("An error occurred. Please try again.");
