@@ -131,4 +131,63 @@ export const updateUser = async (
   });
 };
 
+export const deleteUser = async (id: string) => {
+  cloudinary.uploader.destroy(
+    `next-blog/profile-picture/profile_${id}`,
+    (error, result) => {
+      if (error) {
+        console.log("Error deleting image from Cloudinary:", error);
+        return;
+      } else {
+        console.log("Cloudinary deletion result:", result);
+      }
+    }
+  );
+
+  const posts = await prisma.post.findMany({
+    where: {
+      authorId: id,
+    },
+    select: {
+      title: true,
+    },
+  });
+  for (const post of posts) {
+    cloudinary.uploader.destroy(
+      `next-blog/post/${post.title}_${id}`,
+      (error, result) => {
+        if (error) {
+          console.log("Error deleting image from Cloudinary:", error);
+          return;
+        } else {
+          console.log("Cloudinary deletion result:", result);
+        }
+      }
+    );
+  }
+
+  await prisma.$transaction([
+    prisma.like.deleteMany({
+      where: {
+        userId: id,
+      },
+    }),
+    prisma.comment.deleteMany({
+      where: {
+        authorId: id,
+      },
+    }),
+    prisma.post.deleteMany({
+      where: {
+        authorId: id,
+      },
+    }),
+    prisma.user.delete({
+      where: {
+        id,
+      },
+    }),
+  ]);
+};
+
 export default prisma;
