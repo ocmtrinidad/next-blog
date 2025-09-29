@@ -2,7 +2,6 @@ import { getUserByEmail, getUserById } from "@/models/userModels";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
-import { redirect } from "next/navigation";
 import Google from "next-auth/providers/google";
 
 export const options = {
@@ -11,17 +10,14 @@ export const options = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       async profile(profile) {
-        // CREATE USER BASED ON GITHUB INFO?
         const foundUser = await getUserByEmail(profile.email);
         if (foundUser) {
           foundUser.role = "user";
           return foundUser;
         }
-        redirect("/register");
       },
     }),
     Google({
-      // CREATE THESE
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       async profile(profile) {
@@ -30,7 +26,6 @@ export const options = {
           foundUser.role = "user";
           return foundUser;
         }
-        redirect("/register");
       },
     }),
     Credentials({
