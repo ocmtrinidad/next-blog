@@ -83,7 +83,7 @@ export default function EditProfileForm({
   return (
     <>
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">Edit Your Information</h1>
+        <h1 className="text-2xl font-bold">Edit Your Profile</h1>
         <div className="flex flex-col">
           {user.image && (
             <Image
