@@ -45,10 +45,13 @@ export const createPost = async (
   if (!category) {
     errors.category = "Category is required";
   }
-
+  if (title.length > 100) {
+    errors.title = "Title must not exceed 100 characters";
+  }
   if (Object.keys(errors).length > 0) {
     return { errors, title, content, category };
   }
+
   try {
     await addPost(id, title, content, image, category);
     revalidatePath("/");
@@ -108,15 +111,15 @@ export const editPost = async (
   if (!title) {
     errors.title = "Title is required";
   }
-
   if (!content) {
     errors.content = "Content is required";
   }
-
   if (!category) {
     errors.category = "Category is required";
   }
-
+  if (title.length > 100) {
+    errors.title = "Title must not exceed 100 characters";
+  }
   if (Object.keys(errors).length > 0) {
     return { errors, title, content };
   }
