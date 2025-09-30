@@ -34,19 +34,18 @@ export const createUser = async (prevState: FormData, formData: FormData) => {
   if (!name) {
     errors.name = "Name is required";
   }
-
   if (!email) {
     errors.email = "Email is required";
   }
-
   if (!password) {
     errors.password = "Password is required";
   }
-
   if (password !== confirmPassword && password.length && confirmPassword) {
     errors.confirmPassword = "Confirm Password must match your password";
   }
-
+  if (name.length > 25) {
+    errors.name = "Name must not exceed 25 characters";
+  }
   if (Object.keys(errors).length > 0) {
     return { errors, name, email };
   }
@@ -66,15 +65,15 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
   if (!name) {
     errors.name = "Name is required";
   }
-
   if (!email) {
     errors.email = "Email is required";
   }
-
   if (!password) {
     errors.password = "Password is required for verification";
   }
-
+  if (name.length > 25) {
+    errors.name = "Name must not exceed 25 characters";
+  }
   if (Object.keys(errors).length > 0) {
     return { errors, name, email };
   }
