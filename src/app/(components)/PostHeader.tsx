@@ -18,7 +18,10 @@ export default async function PostHeader({
 
   return (
     <div className="flex flex-col border-b">
-      <Link href={`/post/${post.id}`} className="text-2xl font-bold max-w-fit">
+      <Link
+        href={`/post/${post.id}`}
+        className="text-2xl font-bold max-w-fit line-clamp-1"
+      >
         {post.title}
       </Link>
       <Link
