@@ -5,6 +5,8 @@ import {
   updateUser,
   getUserById,
   deleteUser,
+  getUserByName,
+  getUserByEmail,
 } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -30,6 +32,11 @@ export const createUser = async (prevState: FormData, formData: FormData) => {
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
+  const [userTaken, emailTaken] = await Promise.all([
+    getUserByName(name),
+    getUserByEmail(email),
+  ]);
+
   const errors: UserErrors = {};
   if (!name) {
     errors.name = "Name is required";
@@ -46,6 +53,13 @@ export const createUser = async (prevState: FormData, formData: FormData) => {
   if (name.length > 25) {
     errors.name = "Name must not exceed 25 characters";
   }
+  if (userTaken) {
+    errors.name = "Name is already taken";
+  }
+  if (emailTaken) {
+    errors.email = "Email is already taken";
+  }
+
   if (Object.keys(errors).length > 0) {
     return { errors, name, email };
   }
