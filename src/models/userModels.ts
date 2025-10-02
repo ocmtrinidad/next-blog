@@ -56,6 +56,14 @@ export const getUserById = async (id: string) => {
   return null;
 };
 
+export const getUserByName = async (name: string) => {
+  return await prisma.user.findFirst({
+    where: {
+      name,
+    },
+  });
+};
+
 export const updateUser = async (
   id: string,
   name: string,
