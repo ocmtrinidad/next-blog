@@ -114,7 +114,7 @@ export default function EditPostForm({
           Publishing...
         </button>
       ) : (
-        <BlueButton>Publish</BlueButton>
+        <BlueButton>Submit Edits</BlueButton>
       )}
     </form>
   );
