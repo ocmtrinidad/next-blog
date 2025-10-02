@@ -75,6 +75,11 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
   const bio = formData.get("bio") as string;
   const image = formData.get("image") as File | undefined;
 
+  const [userTaken, emailTaken] = await Promise.all([
+    getUserByName(name),
+    getUserByEmail(email),
+  ]);
+
   const errors: UserErrors = {};
   if (!name) {
     errors.name = "Name is required";
@@ -88,6 +93,13 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
   if (name.length > 25) {
     errors.name = "Name must not exceed 25 characters";
   }
+  if (userTaken) {
+    errors.name = "Name is already taken";
+  }
+  if (emailTaken) {
+    errors.email = "Email is already taken";
+  }
+
   if (Object.keys(errors).length > 0) {
     return { errors, name, email };
   }
