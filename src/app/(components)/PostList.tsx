@@ -35,7 +35,7 @@ export default function PostList({
             <PostHeader post={post} route={route} />
             <Link
               href={`/post/${post.id}`}
-              className="line-clamp-1 md:line-clamp-3 flex-1 my-2"
+              className="line-clamp-3 flex-1 my-2"
             >
               <p>{post.content}</p>
             </Link>
