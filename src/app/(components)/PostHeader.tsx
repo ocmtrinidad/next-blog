@@ -25,7 +25,7 @@ export default async function PostHeader({
         {post.title}
       </Link>
       <Link
-        href={`/user/${post.author.id}`}
+        href={`/user/${post.author.name}`}
         className="max-w-fit flex items-center gap-2"
       >
         <SmallProfilePicture user={post.author} />
