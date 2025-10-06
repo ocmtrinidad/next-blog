@@ -23,11 +23,11 @@ export default function Sidebar({ userId }: { userId: string }) {
         }`}
       >
         <div className="flex flex-col gap-2">
-          {/* x button */}
           <button
             className="self-end text-white cursor-pointer p-4"
             onClick={() => setShowSidebar(false)}
           >
+            {/* x button */}
             &times;
           </button>
           <SidebarLinks
