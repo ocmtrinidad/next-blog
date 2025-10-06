@@ -46,7 +46,7 @@ export default function CreatePostForm({
 
   return (
     <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
-      <h2 className="text-xl font-bold">Create A Post</h2>
+      <h2 className="text-xl font-bold">Create Post</h2>
       <div>
         <label htmlFor="title">Title:</label>
         <input
