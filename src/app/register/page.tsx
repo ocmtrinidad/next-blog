@@ -1,25 +1,44 @@
 "use client";
 
-import { useActionState } from "react";
+import { useState } from "react";
 import { createUser, UserFormState } from "../controllers/usersControllers";
 import BlueButton from "../(components)/BlueButton";
 import Link from "next/link";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export default function RegisterPage() {
-  const initialState: UserFormState = {
+  const [formData, setFormData] = useState<FormData | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formState, setFormState] = useState<UserFormState>({
     errors: {},
     name: "",
     email: "",
-  };
+  });
 
-  const [state, formAction, isPending] = useActionState(
-    createUser,
-    initialState
-  );
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormData(new FormData(e.currentTarget));
+    try {
+      if (formData) {
+        setIsSubmitting(true);
+        const result = await createUser(formData);
+        if (result && result.errors && Object.keys(result.errors).length > 0) {
+          setFormState(result);
+        }
+      }
+    } catch (error) {
+      if (isRedirectError(error)) {
+        return;
+      }
+      console.log("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
-      <form action={formAction} className="flex flex-col gap-4 mb-4">
+      <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 mb-4">
         <h2 className="text-xl font-bold">Register Page</h2>
         <div>
           <label htmlFor="name">Name:</label>
@@ -28,10 +47,10 @@ export default function RegisterPage() {
             name="name"
             id="name"
             className="border rounded p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            defaultValue={state.name}
+            defaultValue={formState.name}
           />
-          {state?.errors.name && (
-            <p className="text-red-500">{state.errors.name}</p>
+          {formState?.errors.name && (
+            <p className="text-red-500">{formState.errors.name}</p>
           )}
         </div>
 
@@ -42,10 +61,10 @@ export default function RegisterPage() {
             name="email"
             id="email"
             className="border rounded p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            defaultValue={state.email}
+            defaultValue={formState.email}
           />
-          {state?.errors.email && (
-            <p className="text-red-500">{state.errors.email}</p>
+          {formState?.errors.email && (
+            <p className="text-red-500">{formState.errors.email}</p>
           )}
         </div>
 
@@ -57,8 +76,8 @@ export default function RegisterPage() {
             id="password"
             className="border rounded p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
-          {state?.errors.password && (
-            <p className="text-red-500">{state.errors.password}</p>
+          {formState?.errors.password && (
+            <p className="text-red-500">{formState.errors.password}</p>
           )}
         </div>
 
@@ -70,12 +89,12 @@ export default function RegisterPage() {
             id="confirmPassword"
             className="border rounded p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
-          {state?.errors.confirmPassword && (
-            <p className="text-red-500">{state.errors.confirmPassword}</p>
+          {formState?.errors.confirmPassword && (
+            <p className="text-red-500">{formState.errors.confirmPassword}</p>
           )}
         </div>
 
-        {isPending ? (
+        {isSubmitting ? (
           <button className="bg-gray-500 px-2 py-1 rounded cursor-pointer">
             Submitting...
           </button>
@@ -90,9 +109,6 @@ export default function RegisterPage() {
         <Link href={"/api/auth/signin?callbackUrl=/"}>
           <BlueButton>Login Here</BlueButton>
         </Link>
-        {/* <Link href={"/api/auth/signin?callbackUrl=/"}>
-          <BlueButton>Login With Google</BlueButton>
-        </Link> */}
       </div>
     </>
   );
