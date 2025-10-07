@@ -26,7 +26,7 @@ export type UserFormState = {
   password?: string;
 };
 
-export const createUser = async (prevState: FormData, formData: FormData) => {
+export const createUser = async (formData: FormData) => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
