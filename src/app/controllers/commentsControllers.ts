@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  addComment,
+  createComment,
   deleteComment,
   getCommentsByPostId,
 } from "@/models/commentModels";
@@ -16,7 +16,7 @@ export const submitComment = async (
   content: string
 ) => {
   try {
-    return await addComment(content, authorId, postId);
+    return await createComment(content, authorId, postId);
   } catch (error) {
     return { error: error };
   }

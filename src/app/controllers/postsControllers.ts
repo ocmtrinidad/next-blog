@@ -1,6 +1,6 @@
 "use server";
 
-import { addPost, deletePost, Post, updatePost } from "@/models/postModels";
+import { createPost, deletePost, Post, updatePost } from "@/models/postModels";
 import { getUserById } from "@/models/userModels";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
@@ -21,7 +21,7 @@ export type PostFormState = {
   category?: string;
 };
 
-export const createPost = async (
+export const submitPost = async (
   id: string,
   prevState: PostFormState | undefined,
   formData: FormData
@@ -53,7 +53,7 @@ export const createPost = async (
   }
 
   try {
-    await addPost(id, title, content, image, category);
+    await createPost(id, title, content, image, category);
     revalidatePath("/");
   } catch (error) {
     console.log("Error creating post:", error);

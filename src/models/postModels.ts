@@ -22,7 +22,7 @@ export type Post = {
   Comment: Comment[];
 };
 
-export const addPost = async (
+export const createPost = async (
   id: string,
   title: string,
   content: string,

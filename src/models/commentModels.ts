@@ -17,7 +17,7 @@ export const getCommentsByPostId = async (postId: string) => {
   });
 };
 
-export const addComment = async (
+export const createComment = async (
   content: string,
   authorId: string,
   postId: string

@@ -6,7 +6,7 @@ export type Like = {
   postId: string;
 };
 
-export const addLike = async (userId: string, postId: string) => {
+export const createLike = async (userId: string, postId: string) => {
   return await prisma.like.create({
     data: {
       userId,

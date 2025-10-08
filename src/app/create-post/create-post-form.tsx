@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PostFormState, createPost } from "../controllers/postsControllers";
+import { PostFormState, submitPost } from "../controllers/postsControllers";
 import { UserType } from "@/models/userModels";
 import { Category } from "@/models/categoryModels";
 import BlueButton from "../(components)/BlueButton";
@@ -29,7 +29,7 @@ export default function CreatePostForm({
     try {
       if (formData) {
         setIsSubmitting(true);
-        const result = await createPost(user.id, undefined, formData);
+        const result = await submitPost(user.id, undefined, formData);
         if (result && result.errors && Object.keys(result.errors).length > 0) {
           setFormState(result);
         }
