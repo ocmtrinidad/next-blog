@@ -19,3 +19,19 @@ export const deleteFollowing = async (id: string) => {
     },
   });
 };
+
+export const getFollowing = async (followerId: string, followedId: string) => {
+  return await prisma.following.findFirst({
+    where: {
+      AND: [{ followerId }, { followedId }],
+    },
+  });
+};
+
+export const getFollowings = async (followerId: string) => {
+  return await prisma.following.findMany({
+    where: {
+      followerId,
+    },
+  });
+};
