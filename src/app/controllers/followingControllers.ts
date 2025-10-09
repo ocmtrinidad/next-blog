@@ -21,3 +21,13 @@ export const followUser = async (
     console.log(error);
   }
 };
+
+export const unfollowUser = async (followerId: string, name: string) => {
+  try {
+    await deleteFollowing(followerId);
+    revalidatePath(`/user/${name}`);
+    redirect(`/user/${name}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
