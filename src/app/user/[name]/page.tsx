@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getFollowing } from "@/models/followingModels";
 import FollowButton from "@/app/(components)/FollowButton";
+import UnfollowButton from "@/app/(components)/UnfollowButton";
 
 export default async function UserPage({
   params,
@@ -43,7 +44,10 @@ export default async function UserPage({
           {session.user && session.user.id === user.id && !following ? (
             <FollowButton followerId={session.user.id} followedId={user} />
           ) : (
-            <div>UNFOLLOW</div>
+            <UnfollowButton
+              followingId={following!.id}
+              followedName={user.name}
+            />
           )}
         </div>
         <SearchBar
