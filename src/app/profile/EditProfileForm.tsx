@@ -29,6 +29,7 @@ export default function EditProfileForm({
     errors: {},
     name: "",
     email: "",
+    bio: "",
   });
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -140,6 +141,9 @@ export default function EditProfileForm({
             className="border rounded p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             defaultValue={user.bio}
           ></textarea>
+          {formState?.errors.bio && (
+            <p className="text-red-500">{formState.errors.bio}</p>
+          )}
         </div>
 
         <button

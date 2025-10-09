@@ -17,6 +17,7 @@ type UserErrors = {
   email?: string;
   password?: string;
   confirmPassword?: string;
+  bio?: string;
 };
 
 export type UserFormState = {
@@ -24,6 +25,7 @@ export type UserFormState = {
   name: string;
   email: string;
   password?: string;
+  bio?: string;
 };
 
 export const createUser = async (formData: FormData) => {
@@ -93,6 +95,9 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
   if (name.length > 25) {
     errors.name = "Name must not exceed 25 characters";
   }
+  if (bio.length > 255) {
+    errors.bio = "Bio must not exceed 255 characters";
+  }
   if (userTaken) {
     errors.name = "Name is already taken";
   }
@@ -101,7 +106,7 @@ export const updateUserProfile = async (id: string, formData: FormData) => {
   }
 
   if (Object.keys(errors).length > 0) {
-    return { errors, name, email };
+    return { errors, name, email, bio };
   }
 
   try {
