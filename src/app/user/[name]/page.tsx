@@ -3,6 +3,10 @@ import PostList from "@/app/(components)/PostList";
 import { getUserByName } from "@/models/userModels";
 import SearchBar from "@/app/(components)/SearchBar";
 import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getFollowing } from "@/models/followingModels";
+import FollowButton from "@/app/(components)/FollowButton";
 
 export default async function UserPage({
   params,
@@ -17,6 +21,8 @@ export default async function UserPage({
     getPostsByAuthor(name, query),
     getUserByName(name),
   ]);
+  const session = await getServerSession(options);
+  const following = await getFollowing(session?.user.id, user!.id);
 
   if (user) {
     return (
@@ -34,6 +40,11 @@ export default async function UserPage({
             />
           )}
           <p>{user.bio}</p>
+          {session.user && session.user.id === user.id && !following ? (
+            <FollowButton followerId={session.user.id} followedId={user} />
+          ) : (
+            <div>UNFOLLOW</div>
+          )}
         </div>
         <SearchBar
           route={`/user/${user.id}`}
