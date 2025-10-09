@@ -74,9 +74,10 @@ model Comment {
 }
 
 model Following {
-  id         String @id @default(cuid())
-  follower   User   @relation("follower", fields: [followerId], references: [id])
+  id         String   @id @default(cuid())
+  follower   User     @relation("follower", fields: [followerId], references: [id])
   followerId String
-  followed   User   @relation("followed", fields: [followedId], references: [id])
+  followed   User     @relation("followed", fields: [followedId], references: [id])
   followedId String
+  createdAt  DateTime @default(now())
 }
