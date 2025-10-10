@@ -6,6 +6,10 @@ import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import SmallProfilePicture from "./SmallProfilePicture";
 import DisplayCommentCounter from "./DisplayCommentCounter";
+import FollowButton from "./FollowButton";
+import UnfollowButton from "./UnfollowButton";
+import { getFollowing } from "@/models/followingModels";
+import { getUserById } from "@/models/userModels";
 
 export default async function PostHeader({
   post,
@@ -15,6 +19,8 @@ export default async function PostHeader({
   route: string;
 }) {
   const session = await getServerSession(options);
+  const following = await getFollowing(session?.user.id, post.author.id);
+  const user = await getUserById(post.author.id);
 
   return (
     <div className="flex flex-col border-b">
@@ -30,6 +36,16 @@ export default async function PostHeader({
       >
         <SmallProfilePicture user={post.author} />
         <p>{post.author.name}</p>
+        {session &&
+          user &&
+          (session.user && session.user.id === user.id && !following ? (
+            <FollowButton followerId={session.user.id} followedId={user} />
+          ) : (
+            <UnfollowButton
+              followingId={following!.id}
+              followedName={user.name}
+            />
+          ))}
       </Link>
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
         <p>{new Date(post.createdAt).toDateString()}</p>
