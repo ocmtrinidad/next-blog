@@ -35,6 +35,7 @@ export const getFollowings = async (followerId: string) => {
     },
     select: {
       followed: true,
+      id: true,
     },
     orderBy: {
       createdAt: "desc",
