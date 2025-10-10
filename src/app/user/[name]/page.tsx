@@ -28,7 +28,7 @@ export default async function UserPage({
   if (user) {
     return (
       <div className="flex flex-col gap-4">
-        <div className="border-b">
+        <div className="border-b pb-2">
           <h1 className="text-2xl font-bold">{user.name}</h1>
           {user && user.image && (
             <Image

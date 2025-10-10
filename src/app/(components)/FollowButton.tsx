@@ -13,7 +13,7 @@ export default function FollowButton({
 }) {
   return (
     <div
-      className="flex mb-2"
+      className="flex"
       onClick={() => followUser(followerId, followedId.id, followedId.name)}
     >
       <BlueButton>Follow</BlueButton>

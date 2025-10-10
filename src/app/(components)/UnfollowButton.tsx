@@ -10,7 +10,7 @@ export default function UnfollowButton({
   followedName: string;
 }) {
   return (
-    <div className="flex mb-2">
+    <div className="flex">
       <button
         onClick={() => unfollowUser(followingId, followedName)}
         className="flex-1 bg-gray-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-gray-700 h-full"
