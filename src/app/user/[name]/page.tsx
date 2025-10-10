@@ -44,10 +44,7 @@ export default async function UserPage({
           {session.user && session.user.id === user.id && !following ? (
             <FollowButton followerId={session.user.id} followedId={user} />
           ) : (
-            <UnfollowButton
-              followingId={following!.id}
-              followedName={user.name}
-            />
+            <UnfollowButton followingId={following!.id} />
           )}
         </div>
         <SearchBar
