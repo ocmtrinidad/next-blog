@@ -3,6 +3,7 @@
 import { UserType } from "@/models/userModels";
 import { followUser } from "../controllers/followingControllers";
 import BlueButton from "./BlueButton";
+import { usePathname } from "next/navigation";
 
 export default function FollowButton({
   followerId,
@@ -11,10 +12,11 @@ export default function FollowButton({
   followerId: string;
   followedId: UserType;
 }) {
+  const pathname = usePathname();
   return (
     <div
       className="flex"
-      onClick={() => followUser(followerId, followedId.id, followedId.name)}
+      onClick={() => followUser(followerId, followedId.id, pathname)}
     >
       <BlueButton>Follow</BlueButton>
     </div>
