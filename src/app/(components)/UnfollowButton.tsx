@@ -10,10 +10,10 @@ export default function UnfollowButton({
 }) {
   const pathname = usePathname();
   return (
-    <div className="flex">
+    <div className="flex items-center">
       <button
         onClick={() => unfollowUser(followingId, pathname)}
-        className="flex-1 bg-gray-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-gray-700 h-full"
+        className="max-h-fit flex-1 bg-gray-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-gray-700"
       >
         Unfollow
       </button>

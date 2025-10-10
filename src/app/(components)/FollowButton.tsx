@@ -1,8 +1,6 @@
 "use client";
 
-import { UserType } from "@/models/userModels";
 import { followUser } from "../controllers/followingControllers";
-import BlueButton from "./BlueButton";
 import { usePathname } from "next/navigation";
 
 export default function FollowButton({
@@ -10,15 +8,17 @@ export default function FollowButton({
   followedId,
 }: {
   followerId: string;
-  followedId: UserType;
+  followedId: string;
 }) {
   const pathname = usePathname();
   return (
     <div
-      className="flex"
-      onClick={() => followUser(followerId, followedId.id, pathname)}
+      className="flex items-center"
+      onClick={() => followUser(followerId, followedId, pathname)}
     >
-      <BlueButton>Follow</BlueButton>
+      <button className="max-h-fit flex-1 bg-blue-500 px-2 py-1 rounded cursor-pointer hover:bg-blue-700">
+        Follow
+      </button>
     </div>
   );
 }
