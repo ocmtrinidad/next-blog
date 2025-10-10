@@ -42,7 +42,7 @@ export default async function UserPage({
           )}
           <p>{user.bio}</p>
           {session.user && session.user.id === user.id && !following ? (
-            <FollowButton followerId={session.user.id} followedId={user} />
+            <FollowButton followerId={session.user.id} followedId={user.id} />
           ) : (
             <UnfollowButton followingId={following!.id} />
           )}
