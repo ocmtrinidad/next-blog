@@ -50,6 +50,11 @@ export default function Sidebar({ userId }: { userId: string }) {
             url={"/profile"}
             text={"Profile"}
           />
+          <SidebarLinks
+            setShowSidebar={setShowSidebar}
+            url={"/following"}
+            text={"Following"}
+          />
         </div>
         <Link
           href={"/api/auth/signout?callbackUrl=/"}
