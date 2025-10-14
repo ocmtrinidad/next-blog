@@ -38,10 +38,11 @@ export default async function PostHeader({
         <p>{post.author.name}</p>
         {session &&
           user &&
-          (session.user && session.user.id === user.id && !following ? (
+          session.user.id !== user.id &&
+          (!following ? (
             <FollowButton followerId={session.user.id} followedId={user.id} />
           ) : (
-            <UnfollowButton followingId={following!.id} />
+            <UnfollowButton followingId={following.id} />
           ))}
       </Link>
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
