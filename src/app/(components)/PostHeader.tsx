@@ -2,8 +2,6 @@ import { Post } from "@/models/postModels";
 import Link from "next/link";
 import DisplayPostUserButtons from "./DisplayPostUserButtons";
 import DisplayLikeButton from "./DisplayLikeButton";
-import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
 import SmallProfilePicture from "./SmallProfilePicture";
 import DisplayCommentCounter from "./DisplayCommentCounter";
 import FollowButton from "./FollowButton";
