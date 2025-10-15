@@ -11,6 +11,7 @@ import UnfollowButton from "./UnfollowButton";
 import { getFollowing } from "@/models/followingModels";
 import { getUserById } from "@/models/userModels";
 
+// MAKE CLIENT COMPONENT?
 export default async function PostHeader({
   post,
   route,
@@ -50,7 +51,11 @@ export default async function PostHeader({
         <div className="flex items-center gap-2">
           <DisplayLikeButton user={session?.user} post={post} />
           <DisplayCommentCounter post={post} />
-          <DisplayPostUserButtons post={post} route={route} />
+          <DisplayPostUserButtons
+            post={post}
+            route={route}
+            userId={session?.user.id}
+          />
         </div>
       </div>
     </div>
