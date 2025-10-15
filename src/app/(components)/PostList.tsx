@@ -3,13 +3,16 @@ import Image from "next/image";
 import PostHeader from "./PostHeader";
 import Link from "next/link";
 import CategoryButton from "./CategoryButton";
+import { UserType } from "@/models/userModels";
 
 export default function PostList({
   posts,
   route,
+  sessionUser,
 }: {
   posts: Post[];
   route: string;
+  sessionUser: UserType | null;
 }) {
   if (!posts.length) {
     return <p className="text-center">No posts available</p>;
@@ -32,7 +35,7 @@ export default function PostList({
             />
           </Link>
           <div className="flex flex-col p-2 flex-1 h-[250px] border-t sm:border-t-0 sm:border-l">
-            <PostHeader post={post} route={route} />
+            <PostHeader post={post} route={route} sessionUser={sessionUser} />
             <Link
               href={`/post/${post.id}`}
               className="line-clamp-3 flex-1 my-2"

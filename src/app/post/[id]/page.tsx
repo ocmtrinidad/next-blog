@@ -22,7 +22,11 @@ export default async function PostId({
 
   return (
     <div className="flex flex-col gap-2">
-      <PostHeader post={post} route={`/user/${id}`} />
+      <PostHeader
+        post={post}
+        route={`/user/${id}`}
+        sessionUser={session.user}
+      />
       <Image
         src={post.image}
         alt={post.title}
