@@ -1,22 +1,20 @@
 import { Post } from "@/models/postModels";
-import { options } from "../api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
 import BlueButton from "./BlueButton";
 import RedButton from "./RedButton";
 
-export default async function DisplayPostUserButtons({
+export default function DisplayPostUserButtons({
   post,
   route,
+  userId,
 }: {
   post: Post;
   route: string;
+  userId: string;
 }) {
-  const session = await getServerSession(options);
-
   return (
     <>
-      {session?.user.id === post.author.id && (
+      {userId === post.author.id && (
         <div className="flex gap-2">
           <Link href={`/post/${post.id}/edit`}>
             <BlueButton>
@@ -32,7 +30,7 @@ export default async function DisplayPostUserButtons({
               </svg>
             </BlueButton>
           </Link>
-          <RedButton post={post} userId={session.user.id} route={route} />
+          <RedButton post={post} userId={userId} route={route} />
         </div>
       )}
     </>
