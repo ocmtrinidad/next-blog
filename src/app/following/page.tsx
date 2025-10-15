@@ -44,7 +44,7 @@ export default async function FollowingPage() {
             </div>
           ))
         ) : (
-          <p>You are not followings any users</p>
+          <p>You are not following any users</p>
         )}
       </div>
     </>
