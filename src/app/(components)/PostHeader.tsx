@@ -9,18 +9,19 @@ import DisplayCommentCounter from "./DisplayCommentCounter";
 import FollowButton from "./FollowButton";
 import UnfollowButton from "./UnfollowButton";
 import { getFollowing } from "@/models/followingModels";
-import { getUserById } from "@/models/userModels";
+import { getUserById, UserType } from "@/models/userModels";
 
 // MAKE CLIENT COMPONENT?
 export default async function PostHeader({
   post,
   route,
+  sessionUser,
 }: {
   post: Post;
   route: string;
+  sessionUser: UserType | null;
 }) {
-  const session = await getServerSession(options);
-  const following = await getFollowing(session?.user.id, post.author.id);
+  const following = await getFollowing(sessionUser?.id!, post.author.id);
   const user = await getUserById(post.author.id);
 
   return (
@@ -37,11 +38,11 @@ export default async function PostHeader({
       >
         <SmallProfilePicture user={post.author} />
         <p>{post.author.name}</p>
-        {session &&
+        {sessionUser &&
           user &&
-          session.user.id !== user.id &&
+          sessionUser.id !== user.id &&
           (!following ? (
-            <FollowButton followerId={session.user.id} followedId={user.id} />
+            <FollowButton followerId={sessionUser.id} followedId={user.id} />
           ) : (
             <UnfollowButton followingId={following.id} />
           ))}
@@ -49,12 +50,12 @@ export default async function PostHeader({
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
         <p>{new Date(post.createdAt).toDateString()}</p>
         <div className="flex items-center gap-2">
-          <DisplayLikeButton user={session?.user} post={post} />
+          <DisplayLikeButton user={sessionUser!} post={post} />
           <DisplayCommentCounter post={post} />
           <DisplayPostUserButtons
             post={post}
             route={route}
-            userId={session?.user.id}
+            userId={sessionUser?.id!}
           />
         </div>
       </div>
