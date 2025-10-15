@@ -3,6 +3,8 @@ import PostList from "@/app/(components)/PostList";
 import CategoryList from "@/app/(components)/CategoryList";
 import { Category, getCategories } from "@/models/categoryModels";
 import SearchBar from "@/app/(components)/SearchBar";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
 export default async function CategoryPosts({
   params,
@@ -17,6 +19,7 @@ export default async function CategoryPosts({
     await getPostsByCategory(name, query),
     await getCategories(),
   ]);
+  const session = await getServerSession(options);
 
   return (
     <>
@@ -28,7 +31,11 @@ export default async function CategoryPosts({
       {!posts || !posts.length ? (
         <p className="text-center">No posts found in this category.</p>
       ) : (
-        <PostList posts={posts} route={`/category/${name}`} />
+        <PostList
+          posts={posts}
+          route={`/category/${name}`}
+          sessionUser={session.user}
+        />
       )}
     </>
   );

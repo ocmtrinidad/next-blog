@@ -27,7 +27,11 @@ export default async function LikedPostsPage({
       {!likedPosts || !likedPosts.length ? (
         <p className="text-center">No Liked Posts Found.</p>
       ) : (
-        <PostList posts={likedPosts} route={"/liked-posts"} />
+        <PostList
+          posts={likedPosts}
+          route={"/liked-posts"}
+          sessionUser={session.user}
+        />
       )}
     </div>
   );
