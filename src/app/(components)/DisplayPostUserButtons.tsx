@@ -18,7 +18,7 @@ export default async function DisplayPostUserButtons({
     <>
       {session?.user.id === post.author.id && (
         <div className="flex gap-2">
-          <Link href={`/post/${post.id}/edit`} className="flex">
+          <Link href={`/post/${post.id}/edit`}>
             <BlueButton>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
