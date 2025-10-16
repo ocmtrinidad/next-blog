@@ -19,7 +19,7 @@ export default async function PostHeader({
   route: string;
   sessionUser: UserType | null;
 }) {
-  const following = await getFollowing(sessionUser?.id!, post.author.id);
+  const following = await getFollowing(sessionUser!.id, post.author.id);
   const user = await getUserById(post.author.id);
 
   return (
@@ -53,7 +53,7 @@ export default async function PostHeader({
           <DisplayPostUserButtons
             post={post}
             route={route}
-            userId={sessionUser?.id!}
+            userId={sessionUser!.id}
           />
         </div>
       </div>
