@@ -15,7 +15,7 @@ export type UserType = {
   image?: string | null;
   role?: string;
   bio?: string | null;
-  Followed: { id: string; followerId: string; followedId: string }[];
+  Followed?: { id: string; followerId: string; followedId: string }[];
 };
 
 export const addUser = async (
