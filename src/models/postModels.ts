@@ -79,7 +79,17 @@ export const getPosts = async (query?: string) => {
         },
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            Followed: {
+              select: {
+                id: true,
+                followedId: true,
+                followerId: true,
+              },
+            },
+          },
+        },
         category: true,
         Like: true,
         Comment: {
@@ -95,7 +105,17 @@ export const getPosts = async (query?: string) => {
   }
   return await prisma.post.findMany({
     include: {
-      author: true,
+      author: {
+        include: {
+          Followed: {
+            select: {
+              id: true,
+              followedId: true,
+              followerId: true,
+            },
+          },
+        },
+      },
       category: true,
       Like: true,
       Comment: {
@@ -114,7 +134,17 @@ export const getPost = async (id: string) => {
   return await prisma.post.findUnique({
     where: { id },
     include: {
-      author: true,
+      author: {
+        include: {
+          Followed: {
+            select: {
+              id: true,
+              followedId: true,
+              followerId: true,
+            },
+          },
+        },
+      },
       category: true,
       Like: true,
       Comment: {
@@ -136,7 +166,17 @@ export const getPostsByAuthor = async (name: string, query?: string) => {
         ],
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            Followed: {
+              select: {
+                id: true,
+                followedId: true,
+                followerId: true,
+              },
+            },
+          },
+        },
         category: true,
         Like: true,
         Comment: {
@@ -153,7 +193,17 @@ export const getPostsByAuthor = async (name: string, query?: string) => {
   return await prisma.post.findMany({
     where: { author: { name } },
     include: {
-      author: true,
+      author: {
+        include: {
+          Followed: {
+            select: {
+              id: true,
+              followedId: true,
+              followerId: true,
+            },
+          },
+        },
+      },
       category: true,
       Like: true,
       Comment: {
@@ -176,7 +226,17 @@ export const getPostsByCategory = async (category: string, query?: string) => {
         title: { contains: query, mode: "insensitive" },
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            Followed: {
+              select: {
+                id: true,
+                followedId: true,
+                followerId: true,
+              },
+            },
+          },
+        },
         category: true,
         Like: true,
         Comment: {
@@ -190,7 +250,17 @@ export const getPostsByCategory = async (category: string, query?: string) => {
   return await prisma.post.findMany({
     where: { category: { name: category } },
     include: {
-      author: true,
+      author: {
+        include: {
+          Followed: {
+            select: {
+              id: true,
+              followedId: true,
+              followerId: true,
+            },
+          },
+        },
+      },
       category: true,
       Like: true,
       Comment: {
@@ -257,7 +327,17 @@ export const getLikedPosts = async (userId: string, query?: string) => {
         title: { contains: query, mode: "insensitive" },
       },
       include: {
-        author: true,
+        author: {
+          include: {
+            Followed: {
+              select: {
+                id: true,
+                followedId: true,
+                followerId: true,
+              },
+            },
+          },
+        },
         category: true,
         Like: true,
         Comment: {
@@ -280,7 +360,17 @@ export const getLikedPosts = async (userId: string, query?: string) => {
       },
     },
     include: {
-      author: true,
+      author: {
+        include: {
+          Followed: {
+            select: {
+              id: true,
+              followedId: true,
+              followerId: true,
+            },
+          },
+        },
+      },
       category: true,
       Like: true,
       Comment: {
