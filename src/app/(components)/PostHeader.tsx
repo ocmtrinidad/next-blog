@@ -1,5 +1,3 @@
-"use client";
-
 import { Post } from "@/models/postModels";
 import Link from "next/link";
 import DisplayPostUserButtons from "./DisplayPostUserButtons";
@@ -7,9 +5,7 @@ import DisplayLikeButton from "./DisplayLikeButton";
 import SmallProfilePicture from "./SmallProfilePicture";
 import DisplayCommentCounter from "./DisplayCommentCounter";
 import { UserType } from "@/models/userModels";
-import { useState } from "react";
-import BlueButton from "./BlueButton";
-import { followUser, unfollowUser } from "../controllers/followingControllers";
+import DisplayFollowUnfollow from "./DisplayFollowUnfollow";
 
 export default function PostHeader({
   post,
@@ -20,38 +16,6 @@ export default function PostHeader({
   route: string;
   sessionUser: UserType | null;
 }) {
-  const [isFollowing, setIsFollowing] = useState(
-    post.author.Followed?.some(
-      (followed) => followed.followerId === sessionUser?.id
-    )
-  );
-
-  const handleFollow = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isFollowing) {
-      const newFollow = await followUser(sessionUser!.id, post.author.id);
-      if (newFollow) {
-        setIsFollowing(true);
-        window.location.reload();
-      }
-    } else {
-      const followObject = post.author.Followed?.find(
-        (follow) =>
-          follow.followerId === sessionUser?.id &&
-          post.author.id === follow.followedId
-      );
-      const newUnfollow = await unfollowUser(followObject!.id);
-      if (newUnfollow) {
-        setIsFollowing(false);
-        window.location.reload();
-      }
-    }
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="flex flex-col border-b">
       <Link
@@ -67,21 +31,10 @@ export default function PostHeader({
         <SmallProfilePicture user={post.author} />
         <p>{post.author.name}</p>
       </Link>
-      <form onSubmit={handleFollow} className="my-2">
-        {sessionUser &&
-          sessionUser.id !== post.author.id &&
-          (!isFollowing ? (
-            <div className="flex items-center">
-              <BlueButton>Follow</BlueButton>
-            </div>
-          ) : (
-            <div className="flex items-center">
-              <button className="max-h-fit flex-1 bg-gray-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-gray-700">
-                Unfollow
-              </button>
-            </div>
-          ))}
-      </form>
+      <DisplayFollowUnfollow
+        selectedUser={post.author}
+        sessionUser={sessionUser}
+      />
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
         <p>{new Date(post.createdAt).toDateString()}</p>
         <div className="flex items-center gap-2">
