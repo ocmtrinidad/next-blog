@@ -26,13 +26,13 @@ export default function PostHeader({
     )
   );
 
-  // DOES NOT UPDATE OTHER POSTS
   const handleFollow = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isFollowing) {
       const newFollow = await followUser(sessionUser!.id, post.author.id);
       if (newFollow) {
         setIsFollowing(true);
+        window.location.reload();
       }
     } else {
       const followObject = post.author.Followed?.find(
@@ -43,6 +43,7 @@ export default function PostHeader({
       const newUnfollow = await unfollowUser(followObject!.id);
       if (newUnfollow) {
         setIsFollowing(false);
+        window.location.reload();
       }
     }
     try {
@@ -66,7 +67,7 @@ export default function PostHeader({
         <SmallProfilePicture user={post.author} />
         <p>{post.author.name}</p>
       </Link>
-      <form onSubmit={handleFollow}>
+      <form onSubmit={handleFollow} className="my-2">
         {sessionUser &&
           sessionUser.id !== post.author.id &&
           (!isFollowing ? (
