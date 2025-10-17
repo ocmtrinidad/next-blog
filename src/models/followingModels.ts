@@ -34,7 +34,11 @@ export const getFollowings = async (followerId: string) => {
       followerId,
     },
     select: {
-      followed: true,
+      followed: {
+        include: {
+          Followed: true,
+        },
+      },
       id: true,
     },
     orderBy: {
