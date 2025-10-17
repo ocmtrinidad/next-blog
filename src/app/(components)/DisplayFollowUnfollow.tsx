@@ -45,7 +45,7 @@ export default function DisplayFollowUnfollow({
   };
 
   return (
-    <form onSubmit={handleFollow}>
+    <form onSubmit={handleFollow} className="flex">
       {sessionUser &&
         sessionUser.id !== selectedUser.id &&
         (!isFollowing ? (

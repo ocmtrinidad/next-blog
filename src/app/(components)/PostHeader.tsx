@@ -24,17 +24,20 @@ export default function PostHeader({
       >
         {post.title}
       </Link>
-      <Link
-        href={`/user/${post.author.name}`}
-        className="max-w-fit flex items-center gap-2"
-      >
-        <SmallProfilePicture user={post.author} />
-        <p>{post.author.name}</p>
-      </Link>
-      <DisplayFollowUnfollow
-        selectedUser={post.author}
-        sessionUser={sessionUser}
-      />
+      <div className="flex gap-2">
+        <Link
+          href={`/user/${post.author.name}`}
+          className="max-w-fit flex items-center gap-2"
+        >
+          <SmallProfilePicture user={post.author} />
+          <p>{post.author.name}</p>
+        </Link>
+        <DisplayFollowUnfollow
+          selectedUser={post.author}
+          sessionUser={sessionUser}
+        />
+      </div>
+
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
         <p>{new Date(post.createdAt).toDateString()}</p>
         <div className="flex items-center gap-2">
