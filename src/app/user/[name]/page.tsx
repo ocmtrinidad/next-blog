@@ -5,9 +5,7 @@ import SearchBar from "@/app/(components)/SearchBar";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { getFollowing } from "@/models/followingModels";
-import FollowButton from "@/app/(components)/FollowButton";
-import UnfollowButton from "@/app/(components)/UnfollowButton";
+import DisplayFollowUnfollow from "@/app/(components)/DisplayFollowUnfollow";
 
 export default async function UserPage({
   params,
@@ -23,7 +21,6 @@ export default async function UserPage({
     getUserByName(name),
   ]);
   const session = await getServerSession(options);
-  const following = await getFollowing(session?.user.id, user!.id);
 
   if (user) {
     return (
@@ -41,11 +38,10 @@ export default async function UserPage({
             />
           )}
           <p>{user.bio}</p>
-          {session.user && session.user.id === user.id && !following ? (
-            <FollowButton followerId={session.user.id} followedId={user.id} />
-          ) : (
-            <UnfollowButton followingId={following!.id} />
-          )}
+          <DisplayFollowUnfollow
+            selectedUser={user}
+            sessionUser={session.user}
+          />
         </div>
         <SearchBar
           route={`/user/${user.id}`}
