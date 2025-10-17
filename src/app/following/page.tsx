@@ -3,9 +3,8 @@ import { options } from "../api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 import { getFollowings } from "@/models/followingModels";
 import Link from "next/link";
-import UnfollowButton from "../(components)/UnfollowButton";
-import FollowButton from "../(components)/FollowButton";
 import SmallProfilePicture from "../(components)/SmallProfilePicture";
+import DisplayFollowUnfollow from "../(components)/DisplayFollowUnfollow";
 
 export default async function FollowingPage() {
   const session = await getServerSession(options);
@@ -18,29 +17,25 @@ export default async function FollowingPage() {
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-4">Following</h1>
+      <h1 className="text-xl font-bold mb-4">Followed Users</h1>
       <div className="flex flex-col gap-2">
         {followings.length > 0 ? (
-          followings.map((following) => (
+          followings.map((follow) => (
             <div
-              key={following.followed.id}
-              className="flex border justify-between p-2"
+              key={follow.followed.id}
+              className="flex border justify-between items-center p-2"
             >
               <Link
-                href={`/user/${following.followed.name}`}
+                href={`/user/${follow.followed.name}`}
                 className="max-w-fit flex items-center gap-2"
               >
-                <SmallProfilePicture user={following.followed} />
-                <p>{following.followed.name}</p>
+                <SmallProfilePicture user={follow.followed} />
+                <p>{follow.followed.name}</p>
               </Link>
-              {session.user.id !== following.followed.id ? (
-                <FollowButton
-                  followerId={session.user.id}
-                  followedId={following.followed.id}
-                />
-              ) : (
-                <UnfollowButton followingId={following.id} />
-              )}
+              <DisplayFollowUnfollow
+                selectedUser={follow.followed}
+                sessionUser={session.user}
+              />
             </div>
           ))
         ) : (
