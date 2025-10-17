@@ -62,6 +62,9 @@ export const getUserByName = async (name: string) => {
     where: {
       name,
     },
+    include: {
+      Followed: true,
+    },
   });
 };
 
