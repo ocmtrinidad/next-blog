@@ -23,7 +23,7 @@ export default async function FollowingPage() {
           followings.map((follow) => (
             <div
               key={follow.followed.id}
-              className="flex border justify-between items-center p-2"
+              className="flex border justify-between items-center p-2 rounded"
             >
               <Link
                 href={`/user/${follow.followed.name}`}
