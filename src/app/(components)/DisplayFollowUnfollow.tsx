@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import BlueButton from "./BlueButton";
 import { followUser, unfollowUser } from "../controllers/followingControllers";
 import { UserType } from "@/models/userModels";
 
@@ -46,19 +45,19 @@ export default function DisplayFollowUnfollow({
 
   return (
     <form onSubmit={handleFollow} className="flex">
-      {sessionUser &&
-        sessionUser.id !== selectedUser.id &&
-        (!isFollowing ? (
-          <div className="flex items-center">
-            <BlueButton>Follow</BlueButton>
-          </div>
-        ) : (
-          <div className="flex items-center">
+      <div className="flex items-center">
+        {sessionUser &&
+          sessionUser.id !== selectedUser.id &&
+          (!isFollowing ? (
+            <button className="max-h-fit flex-1 bg-blue-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-700">
+              Follow
+            </button>
+          ) : (
             <button className="max-h-fit flex-1 bg-gray-500 text-white px-2 py-1 rounded cursor-pointer hover:bg-gray-700">
               Unfollow
             </button>
-          </div>
-        ))}
+          ))}
+      </div>
     </form>
   );
 }
