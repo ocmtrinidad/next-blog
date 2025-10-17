@@ -24,9 +24,8 @@ export default async function UserPage({
 
   if (user) {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="border-b pb-2">
-          <h1 className="text-2xl font-bold">{user.name}</h1>
+      <div className="flex flex-col">
+        <div className="flex items-center">
           {user && user.image && (
             <Image
               src={user.image}
@@ -37,12 +36,15 @@ export default async function UserPage({
               className="rounded-full"
             />
           )}
-          <p>{user.bio}</p>
-          <DisplayFollowUnfollow
-            selectedUser={user}
-            sessionUser={session.user}
-          />
+          <div className="flex gap-2 ml-2">
+            <h1 className="text-2xl font-bold">{user.name}</h1>
+            <DisplayFollowUnfollow
+              selectedUser={user}
+              sessionUser={session.user}
+            />
+          </div>
         </div>
+        <p className="my-2">{user.bio}</p>
         <SearchBar
           route={`/user/${user.id}`}
           placeholder={`Search ${user.name}'s Posts`}
