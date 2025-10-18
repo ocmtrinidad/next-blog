@@ -48,7 +48,7 @@ export default function Sidebar({ userId }: { userId: string }) {
           <SidebarLinks
             setShowSidebar={setShowSidebar}
             url={"/profile"}
-            text={"Profile"}
+            text={"My Profile"}
           />
           <SidebarLinks
             setShowSidebar={setShowSidebar}
