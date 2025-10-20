@@ -34,7 +34,7 @@ export default async function CategoryPosts({
         <PostList
           posts={posts}
           route={`/category/${name}`}
-          sessionUser={session.user}
+          sessionUser={session ? session.user : session}
         />
       )}
     </>
