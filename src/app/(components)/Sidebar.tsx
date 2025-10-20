@@ -55,6 +55,11 @@ export default function Sidebar({ name }: { name: string }) {
             url={"/following"}
             text={"Following"}
           />
+          <SidebarLinks
+            setShowSidebar={setShowSidebar}
+            url={"/followers"}
+            text={"Followers"}
+          />
         </div>
         <Link
           href={"/api/auth/signout?callbackUrl=/"}
