@@ -5,7 +5,7 @@ import BlueButton from "./BlueButton";
 import { useState } from "react";
 import SidebarLinks from "./SidebarLinks";
 
-export default function Sidebar({ userId }: { userId: string }) {
+export default function Sidebar({ name }: { name: string }) {
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
@@ -37,7 +37,7 @@ export default function Sidebar({ userId }: { userId: string }) {
           />
           <SidebarLinks
             setShowSidebar={setShowSidebar}
-            url={`/user/${userId}`}
+            url={`/user/${name}`}
             text={"My Posts"}
           />
           <SidebarLinks

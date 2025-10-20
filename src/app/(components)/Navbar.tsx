@@ -24,7 +24,7 @@ export default async function Navbar() {
         </BlueButton>
       </Link>
       {session ? (
-        <Sidebar userId={session.user.id} />
+        <Sidebar name={session.user.name} />
       ) : (
         <div className="flex justify-between items-center gap-2">
           <Link href={"/register"}>
