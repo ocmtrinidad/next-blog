@@ -38,10 +38,12 @@ export default async function UserPage({
           )}
           <div className="flex gap-2 ml-2">
             <h1 className="text-2xl font-bold">{user.name}</h1>
-            <DisplayFollowUnfollow
-              selectedUser={user}
-              sessionUser={session.user}
-            />
+            {session && (
+              <DisplayFollowUnfollow
+                selectedUser={user}
+                sessionUser={session.user}
+              />
+            )}
           </div>
         </div>
         <p className="my-2">{user.bio}</p>
@@ -52,7 +54,7 @@ export default async function UserPage({
         <PostList
           posts={posts}
           route={`/user/${user.id} `}
-          sessionUser={session.user}
+          sessionUser={session ? session.user : session}
         />
       </div>
     );

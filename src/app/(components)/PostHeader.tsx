@@ -32,10 +32,12 @@ export default function PostHeader({
           <SmallProfilePicture user={post.author} />
           <p>{post.author.name}</p>
         </Link>
-        <DisplayFollowUnfollow
-          selectedUser={post.author}
-          sessionUser={sessionUser}
-        />
+        {sessionUser && (
+          <DisplayFollowUnfollow
+            selectedUser={post.author}
+            sessionUser={sessionUser}
+          />
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
@@ -43,11 +45,13 @@ export default function PostHeader({
         <div className="flex items-center gap-2">
           <DisplayLikeButton user={sessionUser!} post={post} />
           <DisplayCommentCounter post={post} />
-          <DisplayPostUserButtons
-            post={post}
-            route={route}
-            userId={sessionUser!.id}
-          />
+          {sessionUser && (
+            <DisplayPostUserButtons
+              post={post}
+              route={route}
+              userId={sessionUser.id}
+            />
+          )}
         </div>
       </div>
     </div>
