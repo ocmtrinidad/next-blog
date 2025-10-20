@@ -13,7 +13,7 @@ export default function DisplayComment({
   deleteComment: (id: string) => Promise<void>;
 }) {
   return (
-    <div className="grid grid-cols-[max-content_1fr]">
+    <div className="grid grid-cols-[max-content_1fr] border-b mb-2">
       <Link href={`/user/${comment.author.id}`} className="cursor-pointer">
         <SmallProfilePicture user={comment.author} />
       </Link>
