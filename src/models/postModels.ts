@@ -272,6 +272,74 @@ export const getPostsByCategory = async (category: string, query?: string) => {
   });
 };
 
+export const getFollowedPosts = async (userId: string, query?: string) => {
+  if (query) {
+    return await prisma.post.findMany({
+      where: {
+        author: {
+          Followed: {
+            some: {
+              followerId: userId,
+            },
+          },
+        },
+        title: { contains: query, mode: "insensitive" },
+      },
+      include: {
+        author: {
+          include: {
+            Followed: {
+              select: {
+                id: true,
+                followedId: true,
+                followerId: true,
+              },
+            },
+          },
+        },
+        category: true,
+        Like: true,
+        Comment: {
+          include: {
+            author: true,
+          },
+        },
+      },
+    });
+  }
+  return await prisma.post.findMany({
+    where: {
+      author: {
+        Followed: {
+          some: {
+            followerId: userId,
+          },
+        },
+      },
+    },
+    include: {
+      author: {
+        include: {
+          Followed: {
+            select: {
+              id: true,
+              followedId: true,
+              followerId: true,
+            },
+          },
+        },
+      },
+      category: true,
+      Like: true,
+      Comment: {
+        include: {
+          author: true,
+        },
+      },
+    },
+  });
+};
+
 export const deletePost = async (post: Post) => {
   cloudinary.uploader.destroy(
     `next-blog/post/${post.title}_${post.author.id}`,
