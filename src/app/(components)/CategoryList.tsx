@@ -45,11 +45,11 @@ export default function CategoryList({
         <div>
           <button
             className={
-              selectedCategory === "followed-posts"
+              selectedCategory === "Followed-Posts"
                 ? "bg-blue-700 px-2 py-1 rounded cursor-pointer"
                 : "bg-blue-500 px-2 py-1 rounded cursor-pointer hover:bg-blue-700"
             }
-            onClick={() => handleCategoryClick("followed-posts")}
+            onClick={() => handleCategoryClick("Followed-Posts")}
           >
             Followed Posts
           </button>

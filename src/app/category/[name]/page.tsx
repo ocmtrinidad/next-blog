@@ -22,13 +22,13 @@ export default async function CategoryPosts({
   const { query } = await searchParams;
   const session = await getServerSession(options);
   const [posts, categories]: [Post[], Category[]] = await Promise.all([
-    name === "followed-posts"
+    name === "Followed-Posts"
       ? await getFollowedPosts(session.user.id, query)
       : await getPostsByCategory(name, query),
     await getCategories(),
   ]);
 
-  if (!session && name === "followed-posts") {
+  if (!session && name === "Followed-Posts") {
     redirect("/api/auth/signin?callbackUrl=/");
   }
 
