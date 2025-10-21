@@ -9,6 +9,7 @@ import { Category, getCategories } from "@/models/categoryModels";
 import SearchBar from "@/app/(components)/SearchBar";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { redirect } from "next/navigation";
 
 export default async function CategoryPosts({
   params,
@@ -26,6 +27,10 @@ export default async function CategoryPosts({
       : await getPostsByCategory(name, query),
     await getCategories(),
   ]);
+
+  if (!session && name === "followed-posts") {
+    redirect("/api/auth/signin?callbackUrl=/");
+  }
 
   return (
     <>
