@@ -75,6 +75,7 @@ export const options = {
         token.email = user.email;
         token.bio = user.bio;
         token.picture = user.image;
+        token.role = user.role;
       }
 
       // Refresh user data on each request to get updated profile info
@@ -86,6 +87,7 @@ export const options = {
             token.email = freshUser.email;
             token.picture = freshUser.image;
             token.bio = freshUser.bio;
+            token.role = freshUser.role;
           }
         } catch (error) {
           console.error("Error refreshing user data in JWT callback:", error);
@@ -102,6 +104,7 @@ export const options = {
         session.user.email = token.email;
         session.user.image = token.picture;
         session.user.bio = token.bio;
+        session.user.role = token.role;
       }
       return session;
     },
