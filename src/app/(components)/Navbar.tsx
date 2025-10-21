@@ -38,7 +38,11 @@ export default async function Navbar() {
         )}
       </div>
 
-      <h2 className="text-2xl font-bold">ADMIN USER</h2>
+      {session && session.user.role === "ADMIN" ? (
+        <h2 className="text-2xl font-bold">ADMIN USER</h2>
+      ) : (
+        ""
+      )}
     </nav>
   );
 }
