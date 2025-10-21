@@ -20,7 +20,11 @@ export default async function Home({
 
   return (
     <>
-      <CategoryList categories={categories} selectedCategoryName={null} />
+      <CategoryList
+        categories={categories}
+        selectedCategoryName={null}
+        session={session ? session.user : session}
+      />
       <SearchBar route={"/"} placeholder="Search Posts" />
       <PostList
         posts={posts}

@@ -1,4 +1,8 @@
-import { getPostsByCategory, Post } from "@/models/postModels";
+import {
+  getFollowedPosts,
+  getPostsByCategory,
+  Post,
+} from "@/models/postModels";
 import PostList from "@/app/(components)/PostList";
 import CategoryList from "@/app/(components)/CategoryList";
 import { Category, getCategories } from "@/models/categoryModels";
@@ -15,15 +19,21 @@ export default async function CategoryPosts({
 }) {
   const { name } = await params;
   const { query } = await searchParams;
+  const session = await getServerSession(options);
   const [posts, categories]: [Post[], Category[]] = await Promise.all([
-    await getPostsByCategory(name, query),
+    name === "followed-posts"
+      ? await getFollowedPosts(session.user.id, query)
+      : await getPostsByCategory(name, query),
     await getCategories(),
   ]);
-  const session = await getServerSession(options);
 
   return (
     <>
-      <CategoryList categories={categories} selectedCategoryName={name} />
+      <CategoryList
+        categories={categories}
+        selectedCategoryName={name}
+        session={session ? session.user : session}
+      />
       <SearchBar
         route={`/category/${name}`}
         placeholder={`Search Posts in ${name}`}
