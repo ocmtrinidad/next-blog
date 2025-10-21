@@ -42,14 +42,14 @@ export default function PostHeader({
 
       <div className="flex flex-col md:flex-row mb-2 items-start md:gap-2 md:items-center">
         <p>{new Date(post.createdAt).toDateString()}</p>
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <DisplayLikeButton user={sessionUser!} post={post} />
           <DisplayCommentCounter post={post} />
           {sessionUser && (
             <DisplayPostUserButtons
               post={post}
               route={route}
-              userId={sessionUser.id}
+              user={sessionUser}
             />
           )}
         </div>
