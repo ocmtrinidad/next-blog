@@ -194,6 +194,11 @@ export const deleteUser = async (id: string) => {
         authorId: id,
       },
     }),
+    prisma.following.deleteMany({
+      where: {
+        OR: [{ followerId: id }, { followedId: id }],
+      },
+    }),
     prisma.user.delete({
       where: {
         id,
