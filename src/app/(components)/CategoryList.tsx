@@ -1,15 +1,18 @@
 "use client";
 
 import { Category } from "@/models/categoryModels";
+import { UserType } from "@/models/userModels";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function CategoryList({
   categories,
   selectedCategoryName,
+  session,
 }: {
   categories: Category[];
   selectedCategoryName: string | null;
+  session: UserType | null;
 }) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     selectedCategoryName
@@ -38,6 +41,20 @@ export default function CategoryList({
           All
         </button>
       </div>
+      {session && (
+        <div>
+          <button
+            className={
+              selectedCategory === "followed-posts"
+                ? "bg-blue-700 px-2 py-1 rounded cursor-pointer"
+                : "bg-blue-500 px-2 py-1 rounded cursor-pointer hover:bg-blue-700"
+            }
+            onClick={() => handleCategoryClick("followed-posts")}
+          >
+            Followed Posts
+          </button>
+        </div>
+      )}
       {categories.map((category) => (
         <div key={category.id}>
           <button
