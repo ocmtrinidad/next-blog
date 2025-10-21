@@ -2,20 +2,21 @@ import { Post } from "@/models/postModels";
 import Link from "next/link";
 import BlueButton from "./BlueButton";
 import RedButton from "./RedButton";
+import { UserType } from "@/models/userModels";
 
 export default function DisplayPostUserButtons({
   post,
   route,
-  userId,
+  user,
 }: {
   post: Post;
   route: string;
-  userId: string;
+  user: UserType;
 }) {
-  return (
-    <>
-      {userId === post.author.id && (
-        <div className="flex gap-2">
+  if (user.role === "ADMIN" || user.id === post.author.id) {
+    return (
+      <div className="flex gap-2">
+        {user.id === post.author.id && (
           <Link href={`/post/${post.id}/edit`}>
             <BlueButton>
               <svg
@@ -30,9 +31,10 @@ export default function DisplayPostUserButtons({
               </svg>
             </BlueButton>
           </Link>
-          <RedButton post={post} userId={userId} route={route} />
-        </div>
-      )}
-    </>
-  );
+        )}
+
+        <RedButton post={post} userId={user.id} route={route} />
+      </div>
+    );
+  }
 }
